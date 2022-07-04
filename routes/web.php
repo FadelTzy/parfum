@@ -4,12 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user;
 use App\Http\Controllers\TTopikController;
 use App\Http\Controllers\TPeriodeController;
-use App\Http\Controllers\mahasiswa;
-use App\Http\Controllers\dosen;
-use App\Http\Controllers\RelasiController;
-use App\Http\Controllers\konsultasiController;
-use App\Http\Controllers\NotifController;
-use App\Http\Controllers\PrestasiController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\cetak;
 
@@ -31,11 +26,16 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth']], function () {
        
         Route::prefix('admin')->group(function () {
+            //produk
+            Route::get('/data-barang', [BarangController::class, 'barang'])->name('barang.index');
+            Route::post('/data-barang', [BarangController::class, 'store'])->name('barang.store');
+
             Route::get('/', [Controller::class, 'index'])->name('admin.dashboard');
 
             Route::get('/profile', [Controller::class, 'profil'])->name('admin.profil');
 
             Route::get('/apa-aja/{a}', [Controller::class, 'rm2']);
+
 
             //periode
             Route::get('/data-periode', [TPeriodeController::class, 'index'])->name('data.periode');

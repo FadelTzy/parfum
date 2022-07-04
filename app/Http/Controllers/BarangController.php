@@ -3,8 +3,80 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use App\Models\Barang;
+use Yajra\DataTables\DataTables;
 class BarangController extends Controller
 {
-    //
+    public function barang()
+    {
+        if (request()->ajax()) {
+            return Datatables::of(Barang::get())->addIndexColumn()->addColumn('namanya', function ($data) {
+                $btn =  '<div class="media d-flex align-items-center">
+               <img src="' . url('image/produk') . '/' . ($data->gambar ?? 'none.jpg') . '" width="40%" alt="table-user" class="mr-3 rounded-circle avatar-sm">
+               <div class="">
+                   <h6 class=""><a href="javascript:void(0);" class="text-dark">' . $data->nama . '</a></h6>
+               </div>
+           </div>';
+                return $btn;
+            })->addColumn('aksi', function ($data) {
+                $dataj = json_encode($data);
+
+                $btn = "      <ul class='list-inline mb-0'>
+                <li class='list-inline-item'>
+                <button type='button' data-toggle='modal' onclick='upd(" . $dataj . ")' data-backdrop='static' data-target='#exampleModalRightu' class='btn btn-secondary btn-xs mb-1'><i class='simple-icon-note'></i></button>
+                </li>
+                <li class='list-inline-item'>
+                <button type='button' onclick='del(" . $data->id . ")' class='btn btn-danger btn-xs mb-1'><i class='simple-icon-trash'></i></button>
+                </li>
+           
+            </ul>";
+                return $btn;
+            })->addColumn('kuantitasnya', function ($data) {
+                $btn = $data->jumlah . ' ' . $data->satuan;
+                return $btn;
+            })->rawColumns(['aksi', 'kuantitasnya', 'namanya',])->make(true);
+        }
+        return view('admin.data.barang');
+    }
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+
+            'kode' => 'required|max:400',
+            'nama' => 'required|max:400',
+            'merek' => 'required|max:400',
+            'kuantitas' => 'required|max:400',
+            'satuan' => 'required|max:400',
+            'harga' => 'required|max:400',
+            'gambar' => 'mimes:jpeg,png,jpg|max:400',
+
+        ]);
+        if ($validator->fails()) {
+            $data = ['status' => 'error', 'data' => $validator->errors()];
+            return $data;
+        }
+        if (request()->file('gambar')) {
+            $gmbr = request()->file('gambar');
+
+            $nama_file = str_replace(' ', '_', time() . "_" . $gmbr->getClientOriginalName());
+            $tujuan_upload = 'image/produk/';
+            $gmbr->move($tujuan_upload, $nama_file);
+        }
+        $save = Barang::create(
+            [   
+                'kode' => $request->kode,
+                'merek' => $request->merek,
+                'nama' => $request->nama,
+                'jumlah' => $request->kuantitas,
+                'satuan' => $request->satuan,
+                'harga' => $request->harga,
+
+                'gambar' => $nama_file ?? null,
+            ]
+        );
+        if ($save) {
+            return 'success';
+        }
+    }
 }

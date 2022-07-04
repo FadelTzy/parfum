@@ -21,6 +21,7 @@ class CreateBarangsTable extends Migration
             $table->string('satuan')->nullalbe();
             $table->string('jumlah')->nullalbe();
             $table->string('harga')->nullalbe();
+            $table->string('gambar')->nullalbe();
             $table->timestamps();
         });
     }
