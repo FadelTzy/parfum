@@ -11,8 +11,7 @@ use App\Models\t_konsultasi;
 use App\Models\t_mahasiswa;
 use App\Models\t_message;
 use Yajra\DataTables\DataTables;
-use App\Models\t_relasi;
-use App\Models\t_periode;
+
 use Illuminate\Support\Facades\Storage;
 
 class Controller extends BaseController
