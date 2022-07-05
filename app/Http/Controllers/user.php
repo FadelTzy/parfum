@@ -17,9 +17,7 @@ class user extends Controller
     public function foto(Request $request)
     {
         $validator = Validator::make($request->all(), [
-
             'thumbnail' => 'mimes:jpeg,png,jpg|max:400',
-
         ]);
         if ($validator->fails()) {
             $data = ['status' => 'error', 'data' => $validator->errors()];

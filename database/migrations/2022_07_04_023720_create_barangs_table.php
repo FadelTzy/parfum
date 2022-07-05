@@ -18,6 +18,8 @@ class CreateBarangsTable extends Migration
             $table->string('kode')->nullalbe();
             $table->string('merek')->nullalbe();
             $table->string('nama')->nullalbe();
+            $table->string('jenis')->nullalbe();
+
             $table->string('satuan')->nullalbe();
             $table->string('jumlah')->nullalbe();
             $table->string('harga')->nullalbe();

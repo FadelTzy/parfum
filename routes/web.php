@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
             //produk
             Route::get('/data-barang', [BarangController::class, 'barang'])->name('barang.index');
             Route::post('/data-barang', [BarangController::class, 'store'])->name('barang.store');
+            Route::post('/data-barang/edit', [BarangController::class, 'update'])->name('barang.update');
+            Route::delete('/data-barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
             Route::get('/', [Controller::class, 'index'])->name('admin.dashboard');
 
