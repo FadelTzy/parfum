@@ -1,7 +1,7 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'SIBIMTA',
+    'name' => 'Laravel',
     'env' => 'local',
     'debug' => true,
     'url' => 'http://localhost',
@@ -10,7 +10,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:nRzX8QOFSq5EF7IWtpaLzZMoIPH5iA904kpgYXNXGyw=',
+    'key' => 'base64:mHT96CApc7j2ToTEhq8ravAag2SFeXlUZGhi6nTaX5o=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -186,7 +186,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xampp\\htdocs\\parfum\\storage\\framework/cache/data',
+        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -230,7 +230,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'sibimta_cache',
+    'prefix' => 'laravel_cache',
   ),
   'cors' => 
   array (
@@ -269,7 +269,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'ulan',
+        'database' => 'db_parfum',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -279,9 +279,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'ulan',
+        'database' => 'db_parfum',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -299,9 +299,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'ulan',
+        'database' => 'db_parfum',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -314,9 +314,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'ulan',
+        'database' => 'db_parfum',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -329,7 +329,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'sibimta_database_',
+        'prefix' => 'laravel_database_',
       ),
       'default' => 
       array (
@@ -357,12 +357,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\parfum\\storage\\app',
+        'root' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\parfum\\storage\\app/public',
+        'root' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -380,7 +380,7 @@
     ),
     'links' => 
     array (
-      'C:\\xampp\\htdocs\\parfum\\public\\storage' => 'C:\\xampp\\htdocs\\parfum\\storage\\app/public',
+      '/Users/muhammadirfan/Documents/Laravel/parfum/public/storage' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/app/public',
     ),
   ),
   'hashing' => 
@@ -415,13 +415,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xampp\\htdocs\\parfum\\storage\\logs/laravel.log',
+        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xampp\\htdocs\\parfum\\storage\\logs/laravel.log',
+        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -472,7 +472,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xampp\\htdocs\\parfum\\storage\\logs/laravel.log',
+        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -531,14 +531,14 @@
     'from' => 
     array (
       'address' => NULL,
-      'name' => 'SIBIMTA',
+      'name' => 'Laravel',
     ),
     'markdown' => 
     array (
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\parfum\\resources\\views/vendor/mail',
+        0 => '/Users/muhammadirfan/Documents/Laravel/parfum/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -639,7 +639,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xampp\\htdocs\\parfum\\storage\\framework/sessions',
+    'files' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -648,7 +648,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'sibimta_session',
+    'cookie' => 'laravel_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,
@@ -659,9 +659,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\parfum\\resources\\views',
+      0 => '/Users/muhammadirfan/Documents/Laravel/parfum/resources/views',
     ),
-    'compiled' => 'C:\\xampp\\htdocs\\parfum\\storage\\framework\\views',
+    'compiled' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/framework/views',
   ),
   'dompdf' => 
   array (
@@ -669,10 +669,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'C:\\xampp\\htdocs\\parfum\\storage\\fonts/',
-      'font_cache' => 'C:\\xampp\\htdocs\\parfum\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\Fadel\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\xampp\\htdocs\\parfum',
+      'font_dir' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/fonts/',
+      'font_cache' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/fonts/',
+      'temp_dir' => '/var/folders/s_/z3g_zvv54xd5shgdrtpmnh5h0000gn/T',
+      'chroot' => '/Users/muhammadirfan/Documents/Laravel/parfum',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -729,7 +729,7 @@
   'livewire' => 
   array (
     'class_namespace' => 'App\\Http\\Livewire',
-    'view_path' => 'C:\\xampp\\htdocs\\parfum\\resources\\views/livewire',
+    'view_path' => '/Users/muhammadirfan/Documents/Laravel/parfum/resources/views/livewire',
     'layout' => 'layouts.app',
     'asset_url' => NULL,
     'app_url' => NULL,
