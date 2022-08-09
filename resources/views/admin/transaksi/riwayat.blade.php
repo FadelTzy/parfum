@@ -9,7 +9,7 @@
 @section('contentpage')
     <div class="row">
         <div class="col-12">
-            <h1>Tabel Data Produk</h1>
+            <h1>Riwayat Transaksi</h1>
             <div class="top-right-button-container"><button type="button" class="btn btn-primary btn top-right-button mr-1"
                     data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight"> <i
                         class="simple-icon-magnifier-add"></i> <b> Tambah Produk</b></button>
@@ -149,16 +149,14 @@
         <div class="col-12 mb-4">
             <div class="card">
                 <div class="card-body col-12 mb-4 data-table-rows data-tables-hide-filter">
-                    <table id="productss" class="data-table responsive nowrap">
+                    <table id="productss" class="data-table ">
                         <thead>
                             <tr>
                                 <th>No</th>
-
-                                <th>Nama Produk</th>
-                                <th>Kode Produk</th>
-                                <th>Merek</th>
-                                <th>Kuantitasnya</th>
-                                <th>Harga</th>
+                                <th>Tanggal Pemesanan</th>
+                                <th>Pembeli</th>
+                                <th>Status</th>
+                                <th>Pembayaran</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -314,22 +312,22 @@
                 {
                     orderable: false,
                     targets: 2,
-                    width: "15%",
+                    width: "5%",
 
                 },
                 {
                     targets: 1,
-                    width: "15%",
+                    width: "5%",
 
                 },
                 {
                     targets: 3,
-                    width: "10%",
+                    width: "15%",
 
                 },
                 {
                     targets: 4,
-                    width: "10%",
+                    width: "15%",
 
                 },
                 {
@@ -338,39 +336,31 @@
                     orderable: false,
 
                 },
-                {
-                    targets: 6,
-                    width: "10%",
-                    orderable: false,
-
-                },
+             
 
             ],
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('barang.index') }}",
+                url: "{{ route('admin.riwayat') }}",
             },
             columns: [{
                     nama: 'DT_RowIndex',
                     data: 'DT_RowIndex'
                 }, {
-                    nama: 'namanya',
-                    data: 'namanya'
+                    nama: 'tanggalnya',
+                    data: 'tanggalnya'
                 }, {
-                    name: 'kode',
-                    data: 'kode',
+                    name: 'usernya',
+                    data: 'usernya',
                 }, {
-                    name: 'merek',
-                    data: 'merek'
+                    name: 'statusnya',
+                    data: 'statusnya'
                 },
+             
                 {
-                    name: 'kuantitasnya',
-                    data: 'kuantitasnya'
-                },
-                {
-                    name: 'harga',
-                    data: 'harga'
+                    name: 'harganya',
+                    data: 'harganya'
                 },
                 {
                     name: 'aksi',
@@ -391,7 +381,7 @@
                 $.LoadingOverlay("show");
 
                 $.ajax({
-                    url: url + '/admin/data-barang/' + id,
+                    url: url + '/admin/transaksi/' + id,
                     type: "delete",
                     success: function(e) {
                         $.LoadingOverlay("hide");

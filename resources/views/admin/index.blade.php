@@ -10,7 +10,9 @@
 @endsection
 @section('content')
 @yield('contentpage')
-
+@endsection
+@section('appmenu')
+@yield('appmenu')
 @endsection
 @section('footer')
 <x-footer></x-footer>

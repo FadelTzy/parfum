@@ -9,51 +9,54 @@
 @section('contentpage')
     <div class="row">
         <div class="col-12">
-            <h1>Tabel Data Produk</h1>
+            <h1>Data Nota</h1>
             <div class="top-right-button-container"><button type="button" class="btn btn-primary btn top-right-button mr-1"
                     data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight"> <i
-                        class="simple-icon-magnifier-add"></i> <b> Tambah Produk</b></button>
+                        class="simple-icon-magnifier-add"></i> <b> Edit Konfigurasi</b></button>
             </div>
             <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalRight" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Produk Baru</h5><button type="button" class="close"
+                            <h5 class="modal-title">konfigurasi Baru</h5><button type="button" class="close"
                                 data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <form id="adddata">
                                 @csrf
-                                <div class="form-group"><label>Kode Produk</label> <input type="text"
-                                        class="form-control" placeholder="input Kode Produk" name="kode"></div>
-
-                                <div class="form-group"><label>Nama Produk</label> <input type="text"
-                                        class="form-control" placeholder="input Nama Produk" name="nama"></div>
-                                <div class="form-group"><label>Merek Produk</label> <input type="text"
-                                        class="form-control" placeholder="input Merek Produk" name="merek"></div>
-                                <div class="form-group"><label>Kuantitas</label> <input type="text" class="form-control"
-                                        placeholder="input Kuantitas" name="kuantitas"></div>
-                                <div class="form-group"><label>Satuan</label> <input type="text" class="form-control"
-                                        placeholder="input Satuan" name="satuan"></div>
-                                <div class="form-group">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenisproduk" id="inlineRadio1"
-                                            value="parfum">
-                                        <label class="form-check-label" for="inlineRadio1">Parfum</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenisproduk" id="inlineRadio2"
-                                            value="botol">
-                                        <label class="form-check-label" for="inlineRadio2">Botol</label>
-                                    </div>
-
-
+                                <div class="form-group"><label for="nama_app">Nama Aplikasi</label> <input type="text"
+                                        class="form-control" id="nama_app" name="nama_app"
+                                        value="{{ $setting->nama_app ?? '' }}">
                                 </div>
-                                <div class="form-group"><label>Harga</label> <input disabled type="number"
-                                        class="form-control" placeholder="..." id="harga" name="harga"></div>
-                                <div class="form-group"><label>Gambar</label> <input type="file" class="form-control"
-                                        placeholder="input Harga" name="gambar"></div>
+
+                                <div class="form-group"><label for="alamat">Alamat</label> <input type="text"
+                                        class="form-control" id="alamat" name="alamat"
+                                        value="{{ $setting->alamat ?? '' }}">
+                                </div>
+
+                                <div class="form-group"><label for="notelp">Nomor Telepon</label> <input type="text"
+                                        class="form-control" id="notelp" name="notelp"
+                                        value="{{ $setting->notelp ?? '' }}">
+                                </div>
+
+                                <div class="form-group"><label for="kurs">Kurs</label> <input type="text"
+                                        class="form-control" id="kurs" name="kurs"
+                                        value="{{ $setting->kurs ?? '' }}">
+                                </div>
+
+                                <div class="form-group"><label for="kecamatan">Kecamatan</label> <input type="text"
+                                        class="form-control" id="kecamatan" name="kecamatan"
+                                        value="{{ $setting->kecamatan ?? '' }}">
+                                </div>
+
+                                <div class="form-group"><label for="atm">Nomor ATM</label> <input type="text"
+                                        class="form-control" id="atm" name="atm"
+                                        value="{{ $setting->atm ?? '' }} "></div>
+
+
+                                <div class="form-group"><label for="logo">Logo</label> <input type="file"
+                                        class="form-control" id="logo" name="logo"> </div>
                             </form>
                         </div>
                         <div class="modal-footer"><button type="button" class="btn btn-outline-primary"
@@ -62,73 +65,12 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade modal-right" id="exampleModalRightu" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalRight" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Data Produk</h5><button type="button" class="close"
-                                data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="adddatau">
-                                @csrf
-                                <input type="hidden" id="idu" name="id">
-                                <div class="form-group"><label>Kode Produk</label>
-                                    <input type="text" class="form-control" id="kodeu"
-                                        placeholder="input Kode Produk" name="kode">
-                                </div>
 
-                                <div class="form-group"><label>Nama Produk</label>
-                                    <input type="text" id="namau" class="form-control"
-                                        placeholder="input Nama Produk" name="nama">
-                                </div>
-                                <div class="form-group">
-                                    <label>Merek Produk</label>
-                                    <input type="text" class="form-control" id="mereku"
-                                        placeholder="input Merek Produk" name="merek">
-                                </div>
-                                <div class="form-group">
-                                    <label>Kuantitas</label> <input type="text" id="kuantitasu" class="form-control"
-                                        placeholder="input Kuantitas" name="kuantitas">
-                                </div>
-                                <div class="form-group"><label>Satuan</label> <input id="satuanu" type="text"
-                                        class="form-control" placeholder="input Satuan" name="satuan"></div>
-                                <div class="form-group">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenisproduk"
-                                            id="inlineRadio1" value="parfum">
-                                        <label class="form-check-label" for="inlineRadio1">Parfum</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenisproduk"
-                                            id="inlineRadio2" value="botol">
-                                        <label class="form-check-label" for="inlineRadio2">Botol</label>
-                                    </div>
-
-
-                                </div>
-                                <div class="form-group"><label>Harga</label>
-                                    <input  type="number" class="form-control" id="hargau" placeholder="..." id="harga"
-                                        name="harga">
-                                </div>
-                                <div class="form-group"><label>Gambar</label>
-                                    <input type="file" class="form-control" id="gambaru" placeholder="input Harga" name="gambar">
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer"><button type="button" class="btn btn-outline-primary"
-                                data-dismiss="modal">Cancel</button> <button type="button" id="submitaddu"
-                                class="btn btn-primary">Submit</button></div>
-                    </div>
-                </div>
-            </div>
             <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                 <ol class="breadcrumb pt-0">
                     <li class="breadcrumb-item"><a href="#">Admin</a></li>
                     <li class="breadcrumb-item"><a href="#">Data Master</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Produk</li>
+                    <li class="breadcrumb-item active" aria-current="page">Nota</li>
                 </ol>
             </nav>
             <div class="separator mb-5"></div>
@@ -145,34 +87,58 @@
     <div id="suksesnotifu"></div>
     <div id="suksesnotifd"></div>
 
-    <div class="row mb-4">
-        <div class="col-12 mb-4">
-            <div class="card">
-                <div class="card-body col-12 mb-4 data-table-rows data-tables-hide-filter">
-                    <table id="productss" class="data-table responsive nowrap">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-
-                                <th>Nama Produk</th>
-                                <th>Kode Produk</th>
-                                <th>Merek</th>
-                                <th>Kuantitasnya</th>
-                                <th>Harga</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                    </table>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="mb-4">Nota</h5>
+            <form>
+                <div class="form-group"><label for="nama_app">Nama Aplikasi</label> <input type="text"
+                        class="form-control" id="nama_app" name="nama_app" readonly
+                        value="{{ $setting->nama_app ?? '' }}">
                 </div>
-            </div>
+
+                <div class="form-group"><label for="alamat">Alamat</label> <input type="text" class="form-control"
+                        id="alamat" name="alamat" readonly value="{{ $setting->alamat ?? '' }}"> </div>
+
+                <div class="form-group"><label for="notelp">Nomor Telepon</label> <input type="text"
+                        class="form-control" id="notelp" name="notelp" readonly
+                        value="{{ $setting->notelp ?? '' }}">
+                </div>
+
+                <div class="form-group"><label for="kurs">Kurs</label> <input type="text" class="form-control"
+                        id="kurs" name="kurs" readonly value="{{ $setting->kurs ?? '' }}"> </div>
+
+                <div class="form-group"><label for="kecamatan">Kecamatan</label> <input type="text"
+                        class="form-control" id="kecamatan" name="kecamatan" readonly
+                        value="{{ $setting->kecamatan ?? '' }}">
+                </div>
+
+                <div class="form-group"><label for="atm">Nomor ATM</label> <input type="text"
+                        class="form-control" id="atm" name="atm" readonly value="{{ $setting->atm ?? '' }}">
+                </div>
+
+
+                <div class="form-group"><label for="atm">Logo</label>
+                    <br>
+                    @php
+                        $logo = $setting->logo ?? '';
+                    @endphp
+                    @if ($logo == '')
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+                            height="200" alt="">
+                    @else
+                        <img src="{{ url('image/logoapp/' . $setting->logo) }}" alt="" height="200">
+                    @endif
+                </div>
+
+            </form>
         </div>
     </div>
 @endsection
 
 @push('pagejs')
     <script src="{{ asset('asset/js/vendor/datatables.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
-                                                    "></script>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js">
+    </script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -197,9 +163,11 @@
             $("#kodeu").val(id.kode);
             $("#mereku").val(id.merek);
             $("#hargau").val(id.harga);
+
             $("#satuanu").val(id.satuan);
             $("#kuantitasu").val(id.jumlah);
-            $('input:radio[name=jenisproduk][value="'+id.jenis+'"]').attr('checked', true);
+            $('input:radio[name=jenisproduk][value="' + id.jenis + '"]').attr('checked', true);
+
         }
         $("#submitadd").on('click', function() {
             $("#adddata").trigger('submit');
@@ -211,10 +179,8 @@
             id.preventDefault();
             var data = new FormData(this);
             $.LoadingOverlay("show");
-
-
             $.ajax({
-                url: '{{ route('barang.store') }}',
+                url: '{{ route('setting.update') }}',
                 data: data,
                 type: "POST",
 
@@ -240,6 +206,8 @@
                         $("#listnotif").html(elem);
                     } else {
                         $('#exampleModalRight').modal('hide');
+                        location.reload();
+
                         $('#suksesnotif').html(
                             '<div class="alert alert-success alert-dismissible rounded " role="alert">    <strong>Berhasil Menambah Data</strong>    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
                         );
@@ -248,6 +216,7 @@
                         $("#listnotif").html('');
                         tabel.ajax.reload();
                         $('#adddata').trigger("reset");
+
 
                     }
                 }
@@ -265,7 +234,7 @@
                 url: '{{ route('barang.update') }}',
                 data: data,
                 type: "POST",
-                
+
                 contentType: false,
                 processData: false,
                 success: function(id) {

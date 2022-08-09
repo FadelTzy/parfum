@@ -48,6 +48,7 @@
         <div class="container-fluid">
             @yield('content')
         </div>
+        @yield('appmenu')
     </main>
     @yield('footer')
     <script>

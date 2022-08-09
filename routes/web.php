@@ -7,6 +7,10 @@ use App\Http\Controllers\TPeriodeController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\cetak;
+use App\Http\Controllers\NotaController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\BasketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,48 +28,60 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 //dosen
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::prefix('admin')->group(function () {
+        //Transaksi
+        Route::get('/transaksi', [TransaksiController::class, 'index'])->name('admin.transak');
+        Route::get('/riwayat-transaksi', [TransaksiController::class, 'riwayat'])->name('admin.riwayat');
+        Route::post('/transaksi/simpan', [TransaksiController::class, 'simpan'])->name('admin.simpan');
+        Route::post('/transaksi/bayar', [TransaksiController::class, 'bayar'])->name('admin.bayar');
+        Route::delete('/transaksi/{id}', [TransaksiController::class, 'delete']);
+
+        //basketing
+        Route::post('/basket/save', [TransaksiController::class, 'basketsave'])->name('admin.basketsave');
+        Route::post('/basket/remove', [TransaksiController::class, 'basketremove'])->name('admin.basketremove');
+        Route::post('/basket/remove2', [TransaksiController::class, 'basketremove2'])->name('admin.basketremove2');
+        Route::post('/basket/editharga', [TransaksiController::class, 'basketeditharga'])->name('admin.basketeditharga');
+        Route::post('/basket/editdiskon', [TransaksiController::class, 'basketeditdiskon'])->name('admin.basketeditdiskon');
+
+        Route::get('/basket/check', [TransaksiController::class, 'check']);
+        Route::post('/basket', [TransaksiController::class, 'basket'])->name('admin.basket');
+        Route::get('/cart/{id}', [TransaksiController::class, 'cart'])->name('admin.cart');
+
+
+        //produk
+        Route::get('/data-barang', [BarangController::class, 'barang'])->name('barang.index');
+        Route::post('/data-barang', [BarangController::class, 'store'])->name('barang.store');
+        Route::post('/data-barang/edit', [BarangController::class, 'update'])->name('barang.update');
+        Route::delete('/data-barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+
+        Route::get('/', [Controller::class, 'index'])->name('admin.dashboard');
+
+        Route::get('/profile', [Controller::class, 'profil'])->name('admin.profil');
+
+
+
+        //setting
+        Route::get('/data-setting', [SettingController::class, 'index'])->name('setting.index');
+        Route::post('/data-setting', [SettingController::class, 'update'])->name('setting.update');
+
+
+        //periode
+        Route::get('/data-periode', [TPeriodeController::class, 'index'])->name('data.periode');
+        Route::post('/data-periode', [TPeriodeController::class, 'store'])->name('data.periodesave');
+        Route::put('/data-periode', [TPeriodeController::class, 'update'])->name('data.periodeedit');
+        Route::delete('/data-periode/{a}', [TPeriodeController::class, 'destroy'])->name('data.periodehapus');
+
+        Route::post('/foto-profile', [user::class, 'foto'])->name('user.foto');
+        Route::post('/password-profile', [user::class, 'password'])->name('user.password');
+
+        //data admin
+        Route::post('/data-admin', [user::class, 'adminsave'])->name('data.adminsave');
+        Route::put('/data-admin', [user::class, 'adminedit'])->name('data.adminedit');
+        Route::delete('/data-admin/{a}', [user::class, 'adminhapus'])->name('data.adminhapus');
+        Route::get('/data-admin', [user::class, 'admin'])->name('data.admin');
        
-        Route::prefix('admin')->group(function () {
-            //produk
-            Route::get('/data-barang', [BarangController::class, 'barang'])->name('barang.index');
-            Route::post('/data-barang', [BarangController::class, 'store'])->name('barang.store');
-            Route::post('/data-barang/edit', [BarangController::class, 'update'])->name('barang.update');
-            Route::delete('/data-barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
-
-            Route::get('/', [Controller::class, 'index'])->name('admin.dashboard');
-
-            Route::get('/profile', [Controller::class, 'profil'])->name('admin.profil');
-
-            Route::get('/apa-aja/{a}', [Controller::class, 'rm2']);
-
-
-            //periode
-            Route::get('/data-periode', [TPeriodeController::class, 'index'])->name('data.periode');
-            Route::post('/data-periode', [TPeriodeController::class, 'store'])->name('data.periodesave');
-            Route::put('/data-periode', [TPeriodeController::class, 'update'])->name('data.periodeedit');
-            Route::delete('/data-periode/{a}', [TPeriodeController::class, 'destroy'])->name('data.periodehapus');
-         
-            Route::post('/foto-profile', [user::class, 'foto'])->name('user.foto');
-            Route::post('/password-profile', [user::class, 'password'])->name('user.password');
-  
-
-            Route::post('/data-admin', [user::class, 'adminsave'])->name('data.adminsave');
-            Route::post('/data-mahasiswa', [user::class, 'mahasiswasave'])->name('data.mahasiswasave');
-            Route::post('/data-dosen', [user::class, 'dosensave'])->name('data.dosensave');
-
-            Route::put('/data-admin', [user::class, 'adminedit'])->name('data.adminedit');
-            Route::put('/data-mahasiswa', [user::class, 'mahasiswaedit'])->name('data.mahasiswaedit');
-            Route::put('/data-dosen', [user::class, 'dosenedit'])->name('data.dosenedit');
-
-            Route::delete('/data-admin/{a}', [user::class, 'adminhapus'])->name('data.adminhapus');
-            Route::delete('/data-mahasiswa/{a}', [user::class, 'mahasiswahapus'])->name('data.mahasiswahapus');
-            Route::delete('/data-dosen/{a}', [user::class, 'dosenhapus'])->name('data.dosenhapus');
-    
-            Route::get('/data-admin', [user::class, 'admin'])->name('data.admin');
-            Route::get('/data-dosen', [user::class, 'dosen'])->name('data.dosen');
-            Route::get('/data-mahasiswa', [user::class, 'mahasiswa'])->name('data.mahasiswa');
-        });
-    
+    });
 });
 
 //admin
