@@ -4,6 +4,22 @@
             <ul class="list-unstyled">
                 <li class="{{ Request::is('admin') ? 'active' : '' }}"><a href="{{ route('admin.dashboard') }}"><i
                             class="simple-icon-screen-desktop"></i> <span>Dashboard</span></a></li>
+                <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-people"></i> Costumer</a>
+                </li>
+                <li><a href="#layouts"><i class="simple-icon-menu"></i> Data Master</a></li>
+                <li class="{{ Request::segment(2) == 'transaksi' ? 'active' : '' }}"><a
+                        href="{{ route('admin.transak') }}"><i class="simple-icon-basket"></i> Transaksi</a>
+                </li>
+                <li class="{{ Request::segment(2) == 'riwayat-transaksi' ? 'active' : '' }}"><a
+                        href="{{ route('admin.riwayat') }}"><i class="simple-icon-basket"></i> Riwayat Transaksi</a>
+                </li>
+                <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-user"></i> Profile</a>
+                </li>
+                <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-settings"></i>
+                        Pengaturan</a>
+                </li>
+
+
                 <li><a href="#layouts"><i class="simple-icon-people"></i> Data Master</a></li>
                 <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-user"></i> Profile</a>
                 </li>
