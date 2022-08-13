@@ -11,6 +11,9 @@ use App\Http\Controllers\NotaController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\CetakController;
+use App\Http\Controllers\CostumerController;
+use App\Models\Costumer;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,10 +58,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/data-barang/edit', [BarangController::class, 'update'])->name('barang.update');
         Route::delete('/data-barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
+        //customer
+        Route::get('/data-customer', [CostumerController::class, 'customer'])->name('customer.index');
+        Route::post('/data-customer', [CostumerController::class, 'store'])->name('customer.store');
+        Route::post('/data-customer/edit', [CostumerController::class, 'update'])->name('customer.update');
+        // Route::delete('/data-barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+
         Route::get('/', [Controller::class, 'index'])->name('admin.dashboard');
 
         Route::get('/profile', [Controller::class, 'profil'])->name('admin.profil');
 
+
+        //cetak
+        Route::get('/cetak/nota/{id}', [CetakController::class, 'nota'])->name('admin.cetaknota');
 
 
         //setting
@@ -80,7 +92,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/data-admin', [user::class, 'adminedit'])->name('data.adminedit');
         Route::delete('/data-admin/{a}', [user::class, 'adminhapus'])->name('data.adminhapus');
         Route::get('/data-admin', [user::class, 'admin'])->name('data.admin');
-       
     });
 });
 

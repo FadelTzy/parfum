@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nota</title>
+    <style type="text/css">
+        table {
+            max-width: 100%;
+            max-height: 100%;
+            padding-right: 1%;
+        }
+
+        body {
+            padding: 5px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        table th,
+        table td {
+            padding: .625em;
+            /* text-align: center; */
+        }
+
+        table .kop:before {
+            content: ': ';
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        table #caption {
+            font-size: 1.5em;
+            margin: .5em 0 .75em;
+        }
+
+        /* table.border {
+            width: 100%;
+            border-collapse: collapse
+        } */
+
+        table.border tbody th,
+        table.border tbody td {
+            border: thin solid #000;
+            padding: 2px
+        }
+
+        .ttd td,
+        .ttd th {
+            padding-bottom: 4em;
+        }
+        .container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  /* background-color: green; */
+  height: 50px;
+  /* width: calc(25% - 20px); */
+  margin: 10px;
+}
+
+    </style>
+</head>
+
+<body>
+<!-- <div class="container">
+        <div class="row">
+            <table style="float: left" border="0" cellpadding="0" cellspacing="0"class="border" style="overflow-x:auto; ">
+                <tr>
+                  <td><img src="{{ asset('image/logo.png') }}" width="70" height="70"></td>
+                </tr>
+              </table>
+              <table style="float: left" border="0" cellpadding="0" cellspacing="0" class="border" style="overflow-x:auto;">
+                <tr>
+                  <td>Safari Parfum</td>
+                </tr>
+                <tr>
+                    <td>
+                        JL.KERUNG KERUNG NO 62D Telp.
+                        <br>
+                        08114997500
+                        <br>
+
+                    </td>
+                </tr>
+              </table>
+              <table style="float: left" border="0" cellpadding="0" cellspacing="0" class="border" style="overflow-x:auto;">
+                <tr>
+                  <td>Ket</td>
+                </tr>
+                <tr>
+                    <td>
+                        Nota Putih Bukti Pembayaran &
+                        <br>
+                        Penagihan yang SAH
+                        <br>
+                        KURS : 14750
+                    </td>
+                </tr>
+              </table>
+        </div>
+        <div class="row">sasa</div>
+</div> -->
+
+<div class="container">
+    <div class="col">
+        <div class="row">
+            <div class="box"><img src="{{ asset('image/logo.png') }}" width="70" height="70"></div>
+        <div class="box">
+          <table  border="0" cellpadding="0" cellspacing="0" class="border" style="overflow-x:auto;">
+                      <tr>
+                        <td>Safari Parfum</td>
+                      </tr>
+                      <tr>
+                          <td>
+                              JL.KERUNG KERUNG NO 62D Telp.
+                              <br>
+                              08114997500
+                              <br>
+
+                          </td>
+                      </tr>
+                    </table>
+        </div>
+        <div class="box">
+            <table  border="0" cellpadding="0" cellspacing="0" class="border" style="overflow-x:auto;">
+                <tr>
+                  <td>Safari Parfum</td>
+                </tr>
+                <tr>
+                    <td>
+                        Nota Putih Bukti Pembayaran &
+                        <br>
+                        Penagihan yang SAH
+                        <br>
+                        KURS : 14750
+                    </td>
+                </tr>
+              </table>
+        </div>
+        <div class="box">
+            <table  border="0" cellpadding="0" cellspacing="0" class="border" style="overflow-x:auto;">
+                <tr>
+                  <td>Faktur Penjualan</td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        JL.KERUNG KERUNG NO 62D Telp.
+                        <br>
+                        08114997500
+                        <br>
+
+                    </td>
+                </tr> -->
+              </table>
+        </div>
+    </div>
+    <div class="row">
+    <div class="box">koko</div>
+
+    </div>
+
+    </div>
+
+  </div>
+</body>
+
+</html>

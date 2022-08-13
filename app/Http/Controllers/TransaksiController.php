@@ -10,6 +10,7 @@ use Akaunting\Money\Money;
 use App\Models\Setting;
 use App\Models\Transaksi;
 use App\Models\riwayatPembelian;
+
 class TransaksiController extends Controller
 {
     public function check()
@@ -19,8 +20,8 @@ class TransaksiController extends Controller
     }
     public function delete($id)
     {
-        $data = Transaksi::where('id',$id)->first();
-        riwayatPembelian::where('id_transak',$id)->delete();
+        $data = Transaksi::where('id', $id)->first();
+        riwayatPembelian::where('id_transak', $id)->delete();
         $data->delete();
         return 'success';
     }
@@ -120,8 +121,8 @@ class TransaksiController extends Controller
                         $dataj .
                         ")'  class='btn btn-primary mb-1'><i class='simple-icon-plus'></i></button>
                 </li>
-          
-           
+
+
             </ul>";
                     return $btn;
                 })
@@ -149,7 +150,7 @@ class TransaksiController extends Controller
                         $data->jumlah .
                         ")'  class='btn btn-xs btn-primary mb-1'><b>+</b></button>
                 </li>
-           
+
             </ul>";
                     return $btn;
                 })
@@ -334,8 +335,6 @@ class TransaksiController extends Controller
                     return 'success';
                 }
             }
-
-            
         } catch (\Throwable $th) {
             return $th;
         }
@@ -372,8 +371,8 @@ class TransaksiController extends Controller
                         $dataj .
                         ")'  class='btn btn-primary mb-1'><i class='simple-icon-plus'></i></button>
                 </li>
-          
-           
+
+
             </ul>";
                     return $btn;
                 })
@@ -429,7 +428,7 @@ class TransaksiController extends Controller
                     if ($data->status == 1) {
                         $btn .=
                             "<li class='list-inline-item'>
-                        <a class='btn btn-sm btn-warning mb-1'><i class='simple-icon-printer'></i></a>
+                        <a class='btn btn-sm btn-warning mb-1' href='cetak/nota/" . $data->id . "'><i class='simple-icon-printer' '></i></a>
                         </li>";
                     }
                     $btn .= '</ul>';
