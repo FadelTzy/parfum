@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Akaunting\Money\Money;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\User as Modaluser;
@@ -11,9 +12,35 @@ use App\Models\t_dosen;
 use App\Models\t_mahasiswa;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use App\Models\customer;
+
+use Illuminate\Support\Facades\Auth;
 
 class user extends Controller
 {
+    public function pelanggan()
+    {
+        if (request()->ajax()) {
+            return Datatables::of(customer::get())->addIndexColumn()->addColumn('aksi', function ($data) {
+                $dataj = json_encode($data);
+
+                $btn = "      <ul class='list-inline mb-0'>
+                <li class='list-inline-item'>
+                <button type='button' data-toggle='modal' onclick='ubahnama(" . $dataj . ")'  class='btn btn-secondary btn-xs mb-1'><i class='simple-icon-plus'></i></button>
+                </li>
+           
+           
+            </ul>";
+                return $btn;
+            })->addColumn('kreditnya', function ($data) {
+                $btn = Money::IDR($data->kredit_c, true);
+                return $btn;
+            })->addColumn('debitnya', function ($data) {
+                $btn = Money::IDR($data->debit_c, true);
+                return $btn;
+            })->rawColumns(['aksi', 'status', 'nama', 'kreditnya', 'debitnya'])->make(true);
+        }
+    }
     public function foto(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -30,7 +57,7 @@ class user extends Controller
             $tujuan_upload = 'image/fotomhs/';
             $gmbr->move($tujuan_upload, $nama_file);
         }
-        $save = user::where('username', Auth::user()->username)->update(
+        $save = Modaluser::where('username', Auth::user()->username)->update(
             [
                 'foto' => $nama_file ?? null,
             ]
@@ -50,7 +77,7 @@ class user extends Controller
             return $data;
         }
 
-        $save = User::where('username', Auth::user()->username)->update(
+        $save = Modaluser::where('username', Auth::user()->username)->update(
             [
                 'password' => hash::make(request()->input('password')),
             ]
@@ -102,46 +129,7 @@ class user extends Controller
             'result' => 'success',
         ]);
     }
-    public function apidosen()
-    {
-        $arrContextOptions = array(
-            "ssl" => array(
-                "verify_peer" => false,
-                "verify_peer_name" => false,
-            ),
-        );
-        $response = file_get_contents("https://simpeg.unm.ac.id/api-pegawai", false, stream_context_create($arrContextOptions));
-        $arrp = [];
-        $data = json_decode($response);
-        set_time_limit(0);
-
-        foreach ($data as $val) {
-            if ($val->unit == "Fakultas Teknik" && $val->jenis_kepegawaian == 'dosen' && $val->ket == 'Aktif') {
-                $arrp[] = $val;
-                t_dosen::updateOrCreate([
-                    'id_dosen' => $val->id_pegawai,
-                ], [
-                    'nama' => $val->nama,
-                    'nip' => $val->nip,
-                    'alamat' => $val->alamat,
-                    'no_hp' => $val->no_hp,
-                    'email' => $val->email,
-                    'jk' => $val->jk,
-                    'foto' => $val->foto,
-                ]);
-                Modaluser::updateOrCreate([
-                    'username' => $val->nip,
-                ], [
-                    'name' => $val->nama,
-                    'email' => $val->email,
-                    'password' => Hash::make(12345),
-                    'role' => 2,
-                    'status' => '1'
-                ]);
-            }
-        }
-        return 'success';
-    }
+ 
     public function adminhapus($id)
     {
         $res = Modaluser::findOrFail($id);
@@ -151,29 +139,8 @@ class user extends Controller
         }
         return "fail";
     }
-    public function mahasiswahapus($id)
-    {
-        Cache::forget('mahasiswa');
-
-        $res = Modaluser::where('username', $id)->first();
-        t_mahasiswa::where('nim', $id)->delete();
-        if ($res) {
-            $res->delete();
-            return "success";
-        }
-        return "fail";
-    }
-    public function dosenhapus($id)
-    {
-        Cache::forget('dosen');
-        $res = Modaluser::where('username', $id)->first();
-        t_dosen::where('nip', $id)->delete();
-        if ($res) {
-            $res->delete();
-            return "success";
-        }
-        return "fail";
-    }
+   
+   
     public function adminedit(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -205,102 +172,8 @@ class user extends Controller
             return 'success';
         }
     }
-    public function mahasiswaedit(Request $request)
-    {
-        Cache::forget('mahasiswa');
-        $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string', 'max:255'],
-            'prodi' => ['string', 'max:255'],
-            'angkatan' => ['max:14'],
-        ]);
-        if ($validator->fails()) {
-            $data = ['status' => 'error', 'data' => $validator->errors()];
-            return $data;
-        }
-        if ($request->password != null) {
-            $user = Modaluser::where('username', $request->username)->update([
-                'name' => $request->nama,
-                'email' => $request->username,
-                'password' => Hash::make('password'),
-                'no_hp' => $request->no,
-                'username' => $request->username,
-                'status' => 1,
-                'role' => 3,
-                'foto' => null,
-            ]);
-        } else {
-            $user = Modaluser::where('username', $request->username)->update([
-                'name' => $request->nama,
-                'email' => $request->username,
-                'no_hp' => $request->no,
-                'username' => $request->username,
-                'status' => 1,
-                'role' => 3,
-                'foto' => null,
-            ]);
-        }
+  
 
-        t_mahasiswa::where('nim', $request->id)->update([
-            'nama' => $request->nama,
-            'nim' => $request->username,
-            'prodi' => $request->prodi,
-            'angkatan' => $request->angkatan,
-            'email' => $request->email,
-            'no_hp' => $request->no,
-            'status' => 'A',
-            'pa' => null,
-            'foto' => null
-        ]);
-        if ($user) {
-            return 'success';
-        }
-    }
-    public function dosenedit(Request $request)
-    {
-        Cache::forget('dosen');
-        $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string', 'max:255'],
-            'alamat' => ['max:100'],
-        ]);
-        if ($validator->fails()) {
-            $data = ['status' => 'error', 'data' => $validator->errors()];
-            return $data;
-        }
-        if ($request->password != null) {
-            $user = Modaluser::where('username', $request->username)->update([
-                'name' => $request->nama,
-                'email' => $request->email,
-                'password' => Hash::make('password'),
-                'no_hp' => $request->no,
-                'username' => $request->username,
-                'status' => 1,
-                'role' => 2,
-                'foto' => null,
-            ]);
-        } else {
-            $user = Modaluser::where('username', $request->username)->update([
-                'name' => $request->nama,
-                'email' => $request->email,
-                'no_hp' => $request->no,
-                'username' => $request->username,
-                'status' => 1,
-                'role' => 2,
-                'foto' => null,
-            ]);
-        }
-
-        t_dosen::where('id', $request->id)->update([
-            'nama' => $request->nama,
-            'nip' => $request->username,
-            'alamat' => $request->alamat,
-            'email' => $request->email,
-            'no_hp' => $request->no,
-
-        ]);
-        if ($user) {
-            return 'success';
-        }
-    }
     public function adminsave(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -373,47 +246,6 @@ class user extends Controller
         }
         return view('admin.data.admin');
     }
-    public function dosen()
-    {
-        if (request()->ajax()) {
-            return Datatables::of(Cache::remember('dosen', 600, function () {
-                return t_dosen::all();
-            }))->addIndexColumn()->addColumn('aksi', function ($data) {
-                $dataj = json_encode($data);
+  
 
-                $btn = "      <ul class='list-inline mb-0'>
-                <li class='list-inline-item'>
-                <button type='button' data-toggle='modal' onclick='upd(" . $dataj . ")' data-backdrop='static' data-target='#exampleModalRightu' class='btn btn-secondary btn-xs mb-1'><i class='simple-icon-eye'></i></button>
-                </li>
-                <li class='list-inline-item'>
-                <button type='button' onclick='del(" . json_encode($data->nip) . ")' class='btn btn-danger btn-xs mb-1'><i class='simple-icon-trash'></i></button>
-                </li>
-           
-            </ul>";
-                return $btn;
-            })->rawColumns(['aksi'])->make(true);
-        }
-        return view('admin.data.dosen');
-    }
-    public function mahasiswa()
-    {
-        if (request()->ajax()) {
-            return Datatables::of(Cache::remember('mahasiswa', 600, function () {
-                return t_mahasiswa::all();
-            }))->addIndexColumn()->addColumn('aksi', function ($data) {
-                $dataj = json_encode($data);
-
-                $btn = "      <ul class='list-inline mb-0'>
-                <li class='list-inline-item'>
-                <button type='button' data-toggle='modal' onclick='upd(" . $dataj . ")' data-backdrop='static' data-target='#exampleModalRightu' class='btn btn-secondary btn-xs mb-1'><i class='simple-icon-eye'></i></button>
-                </li>
-                <li class='list-inline-item'>
-                <button type='button' onclick='del(" . $data->nim . ")' class='btn btn-danger btn-xs mb-1'><i class='simple-icon-trash'></i></button>
-                </li>
-                </ul>";
-                return $btn;
-            })->rawColumns(['aksi'])->make(true);
-        }
-        return view('admin.data.mahasiswa');
-    }
 }

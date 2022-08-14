@@ -68,6 +68,12 @@
                                     <label>Kredit</label>
                                     <input type="text" class="form-control" id="kredit_c" name="kredit_c">
                                 </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" value="1" name="bayar_debit" id="customCheck1">
+                                         <label class="custom-control-label" for="customCheck1">Bayar Debit</label>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer"><button type="button" class="btn btn-outline-primary"
@@ -124,7 +130,7 @@
     <script src="{{ asset('asset/js/vendor/datatables.min.js') }}"></script>
     <script
         src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
-                                                                                                                                                                                                                                                                                                                                                                                        ">
+                                                                                                                                                                                                                                                                                                                                                                                            ">
     </script>
     <script>
         $.ajaxSetup({
@@ -309,12 +315,12 @@
                     data: 'alamat_c'
                 },
                 {
-                    name: 'kredit_c',
-                    data: 'kredit_c'
+                    name: 'kreditnya',
+                    data: 'kreditnya'
                 },
                 {
-                    name: 'debit_c',
-                    data: 'debit_c'
+                    name: 'debitnya',
+                    data: 'debitnya'
                 },
                 {
                     name: 'aksi',

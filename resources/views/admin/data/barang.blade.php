@@ -10,9 +10,35 @@
     <div class="row">
         <div class="col-12">
             <h1>Tabel Data Produk</h1>
-            <div class="top-right-button-container"><button type="button" class="btn btn-primary btn top-right-button mr-1"
-                    data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight"> <i
-                        class="simple-icon-magnifier-add"></i> <b> Tambah Produk</b></button>
+            <div class="top-right-button-container">
+                <button type="button" class="btn btn-primary btn top-right-button mr-1" data-toggle="modal"
+                    data-target="#exportModal"> <i class="simple-icon-magnifier-add"></i> <b> Import</b></button>
+                    <a type="button" target="_blank" class="btn btn-primary btn top-right-button mr-1" href="{{route('barang.export')}}"> <i class="simple-icon-magnifier-add"></i> <b> Export</b></a>
+                <button type="button" class="btn btn-primary btn top-right-button mr-1" data-toggle="modal"
+                    data-target="#exampleModalRight"> <i class="simple-icon-magnifier-add"></i> <b> Tambah
+                        Produk</b></button>
+            </div>
+            <div class="modal fade modal-right" id="exportModal" tabindex="-1" role="dialog"
+                aria-labelledby="exportModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Import Data Barang</h5><button type="button" class="close"
+                                data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formimport">
+                                @csrf
+                              
+                                <div class="form-group"><label>File</label> <input type="file" class="form-control"
+                                        placeholder="input Harga" name="excel"></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"><button type="button" class="btn btn-outline-primary"
+                                data-dismiss="modal">Cancel</button> <button type="button" id="submitimport"
+                                class="btn btn-primary">Submit</button></div>
+                    </div>
+                </div>
             </div>
             <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalRight" aria-hidden="true">
@@ -43,8 +69,8 @@
                                         <label class="form-check-label" for="inlineRadio1">Parfum</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenisproduk" id="inlineRadio2"
-                                            value="botol">
+                                        <input class="form-check-input" type="radio" name="jenisproduk"
+                                            id="inlineRadio2" value="botol">
                                         <label class="form-check-label" for="inlineRadio2">Botol</label>
                                     </div>
 
@@ -62,6 +88,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="modal fade modal-right" id="exampleModalRightu" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalRight" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -109,11 +136,12 @@
 
                                 </div>
                                 <div class="form-group"><label>Harga</label>
-                                    <input  type="number" class="form-control" id="hargau" placeholder="..." id="harga"
-                                        name="harga">
+                                    <input type="number" class="form-control" id="hargau" placeholder="..."
+                                        id="harga" name="harga">
                                 </div>
                                 <div class="form-group"><label>Gambar</label>
-                                    <input type="file" class="form-control" id="gambaru" placeholder="input Harga" name="gambar">
+                                    <input type="file" class="form-control" id="gambaru" placeholder="input Harga"
+                                        name="gambar">
                                 </div>
 
                             </form>
@@ -157,7 +185,7 @@
                                 <th>Nama Produk</th>
                                 <th>Kode Produk</th>
                                 <th>Merek</th>
-                                <th>Kuantitasnya</th>
+                                <th>Jumlah</th>
                                 <th>Harga</th>
                                 <th>Aksi</th>
                             </tr>
@@ -172,7 +200,7 @@
 @push('pagejs')
     <script src="{{ asset('asset/js/vendor/datatables.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
-                                                    "></script>
+                                                        "></script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -199,7 +227,7 @@
             $("#hargau").val(id.harga);
             $("#satuanu").val(id.satuan);
             $("#kuantitasu").val(id.jumlah);
-            $('input:radio[name=jenisproduk][value="'+id.jenis+'"]').attr('checked', true);
+            $('input:radio[name=jenisproduk][value="' + id.jenis + '"]').attr('checked', true);
         }
         $("#submitadd").on('click', function() {
             $("#adddata").trigger('submit');
@@ -207,12 +235,58 @@
         $("#submitaddu").on('click', function() {
             $("#adddatau").trigger('submit');
         });
+        $("#submitimport").on('click', function() {
+            $("#formimport").trigger('submit');
+        });
+        $("#formimport").on('submit', function(id) {
+            id.preventDefault();
+            var data = new FormData(this);
+            $.LoadingOverlay("show");
+            $.ajax({
+                url: '{{ route('barang.import') }}',
+                data: data,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                success: function(id) {
+                    console.log(id);
+                    $.LoadingOverlay("hide");
+
+                    if (id.status == 'error') {
+                        var data = id.data;
+                        var elem;
+                        var result = Object.keys(data).map((key) => [data[key]]);
+                        elem =
+                            '<div class="alert alert-danger alert-dismissible fade show pt-3" role="alert">';
+                        elem +=
+                            '   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button><ul>';
+                        result.forEach(function(data) {
+                            elem += '<li>' + data[0][0] + '</li>';
+                        });
+                        elem += '</ul></div>';
+                        $("#notif").removeClass('d-none');
+                        $("#listnotif").html(elem);
+                    } else {
+                        $('#exampleModalRight').modal('hide');
+                        $('#suksesnotif').html(
+                            '<div class="alert alert-success alert-dismissible rounded " role="alert">    <strong>Berhasil Menambah Data</strong>    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+                        );
+
+                        $("#notif").addClass('d-none');
+                        $("#listnotif").html('');
+                        tabel.ajax.reload();
+                        $('#adddata').trigger("reset");
+
+                    }
+                }
+            })
+
+
+        })
         $("#adddata").on('submit', function(id) {
             id.preventDefault();
             var data = new FormData(this);
             $.LoadingOverlay("show");
-
-
             $.ajax({
                 url: '{{ route('barang.store') }}',
                 data: data,
@@ -265,7 +339,7 @@
                 url: '{{ route('barang.update') }}',
                 data: data,
                 type: "POST",
-                
+
                 contentType: false,
                 processData: false,
                 success: function(id) {
@@ -369,8 +443,8 @@
                     data: 'kuantitasnya'
                 },
                 {
-                    name: 'harga',
-                    data: 'harga'
+                    name: 'harganya',
+                    data: 'harganya'
                 },
                 {
                     name: 'aksi',

@@ -9,4 +9,8 @@ class Transaksi extends Model
 {
     use HasFactory;
     protected $guarded =[];
+    public function oCustomer()
+    {
+        return $this->hasOne(customer::class, 'id', 'id_user');
+    }
 }

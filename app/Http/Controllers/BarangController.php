@@ -2,12 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Akaunting\Money\Money;
+use App\Exports\barangExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Barang;
 use Yajra\DataTables\DataTables;
+use App\Imports\barangImport;
+
+use Maatwebsite\Excel\Facades\Excel;
 class BarangController extends Controller
 {
+    public function import(Request $request)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'excel' => 'required|mimes:csv,xls,xlsx'
+        ]);
+        if ($validator->fails()) {
+            $data = ['status' => 'error', 'data' => $validator->errors()];
+            return $data;
+        }
+        Excel::import(new barangImport(), request()->file('excel'));
+    }
+    public function export(Request $request)
+    {
+       
+        return Excel::download(new barangExport(), 'daftarbarang.xlsx');
+
+    }
     public function destroy($id)
     {
         $data = Barang::where('id',$id)->first();
@@ -31,7 +54,7 @@ class BarangController extends Controller
                <img src="' .
                         url('image/produk') .
                         '/' .
-                        ($data->gambar ?? 'none.jpg') .
+                        ($data->gambar != null ? $data->gambar:'none.png') .
                         '" width="40%" alt="table-user" class="mr-3 rounded-circle avatar-sm">
                <div class="">
                    <h6 class=""><a href="javascript:void(0);" class="text-dark">' .
@@ -62,6 +85,11 @@ class BarangController extends Controller
                 })
                 ->addColumn('kuantitasnya', function ($data) {
                     $btn = $data->jumlah . ' ' . $data->satuan;
+                    return $btn;
+                })
+                ->addColumn('harganya', function ($data) {
+                    $btn =  Money::IDR($data->harga, true);
+
                     return $btn;
                 })
                 ->rawColumns(['aksi', 'kuantitasnya', 'namanya'])

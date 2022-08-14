@@ -117,7 +117,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="formbayar" action="">
-                    <input type="hidden" name="id" value="{{$dT->id}}">
+                    <input type="hidden" name="id" value="{{ $dT->id }}">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalPopoversLabel">Notifikasi Pembayaran</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -221,6 +221,35 @@
                 data-align="right" data-color="danger" data-status="Gagal" data-teks="Terjadi Kesalahan"></a>
         </div>
     </div>
+    <div class="modal fade modalpelanggan" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Daftar Pelanggan</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body col-12 mb-4 ">
+
+                        <table id="pelanggans" class="table table-bordered table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>No Hp</th>
+                                    <th>Kredit</th>
+                                    <th>Debit</th>
+                                    <th>Aksi</th>
+
+                                </tr>
+
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('appmenu')
     <div class="app-menu">
@@ -244,13 +273,15 @@
                                 class="float-right">{{ $dT->tanggalpesan ?? '-' }}</span></li>
                         <li class="">Tanggal Pembayaran<span
                                 class="float-right">{{ $dT->tanggalbayar ?? '-' }}</span></li>
-                        <li class="">
-                            No Pemesanan
+                        <li class="">No Pemesanan
 
                             <span class="float-right">{{ $dT->nopemesanan ?? '-' }}</span>
 
                         </li>
-                        <li class="">Pelanggan <span class="float-right">{{ $dT->id_user ?? 'Guest' }}</span></li>
+                        <li class=""><a type="button" onclick="daftar()" href="#"> Pelanggan
+                                <span id="namapelanggan" class="float-right">{{ $dT->oCustomer->nama_c ?? 'Guest' }}</span>
+                            </a></li>
+                            <input type="hidden" name="idpelanggan" value="{{ $dT->oCustomer->id}} ??" id="idpelangganv">
 
                     </ul>
                     <p class="text-muted text-small">Harga</p>
@@ -294,7 +325,7 @@
 
     <script
         src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
-                                                                                                                                                                                                            ">
+                                                                                                                                                                                                                        ">
     </script>
     <script>
         $.ajaxSetup({
@@ -303,6 +334,79 @@
             }
         });
         url = window.location.origin;
+
+        function daftar() {
+            $(".modalpelanggan").modal("show")
+            $("#pelanggans").dataTable().fnDestroy()
+
+            $("#pelanggans").DataTable({
+
+                "ordering": false,
+                columnDefs: [{
+                        targets: 0,
+                        width: "1%",
+                    },
+                    {
+                        targets: 1,
+                        width: "15%",
+
+                    },
+                    {
+                        orderable: false,
+                        targets: 2,
+                        width: "15%",
+
+                    },
+
+                    {
+                        targets: 3,
+                        width: "20%",
+
+                    },
+                    {
+                        targets: 4,
+                        width: "5%",
+
+                    },
+                    {
+                        targets: 5,
+                        width: "5%",
+                        orderable: false,
+
+                    },
+
+                ],
+                order: [],
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: url + '/admin/daftar-pelanggan/',
+                },
+                columns: [{
+                        nama: 'DT_RowIndex',
+                        data: 'DT_RowIndex'
+                    }, {
+                        nama: 'nama_c',
+                        data: 'nama_c'
+                    }, {
+                        name: 'hp_c',
+                        data: 'hp_c',
+                    }, {
+                        name: 'kreditnya',
+                        data: 'kreditnya'
+                    },
+                    {
+                        name: 'debitnya',
+                        data: 'debitnya'
+                    },
+                    {
+                        name: 'aksi',
+                        data: 'aksi'
+                    },
+
+                ]
+            });
+        }
 
         function formatRupiah(angka, prefix) {
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -439,7 +543,7 @@
                         var data = id.data;
                         $("#notifDanger").trigger('click')
 
-                       
+
                     } else {
 
                         $("#notifSuccess").trigger('click')
@@ -808,6 +912,13 @@
             $("#labelkodenamad").html(id.kodebarang + ' - ' + id.namabarang);
             $(".modal-sm-dis").modal('show');
 
+        }
+
+        function ubahnama(id) {
+            console.log(id);
+            $("#namapelanggan").html(id.nama_c)
+            $("#idpelangganv").val(id.id)
+            $(".modalpelanggan").modal('hide');
         }
     </script>
 @endpush

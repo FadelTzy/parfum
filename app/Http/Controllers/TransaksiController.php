@@ -7,6 +7,7 @@ use App\Models\Barang;
 use Yajra\DataTables\DataTables;
 use App\Models\Basket;
 use Akaunting\Money\Money;
+use App\Models\customer;
 use App\Models\Setting;
 use App\Models\Transaksi;
 use App\Models\riwayatPembelian;
@@ -27,6 +28,7 @@ class TransaksiController extends Controller
     }
     public function bayar(Request $request)
     {
+        
         try {
             $checking = Transaksi::where('id', $request->id)->first();
             $checking->jumlah = $request->jumlah;
@@ -38,6 +40,18 @@ class TransaksiController extends Controller
             $checking->tanggalbayar = date('d - m - Y');
             $checking->save();
             if ($checking) {
+                $c = customer::where('id',$checking->id_user)->first();
+                $sisa = ((int)$c->kredit_c - (int)$request->totalharga);
+                if($sisa < 0){
+                    $abss = abs($sisa);
+                    $c->debit_c = $c->debit_c + $abss;
+                    $c->kredit_c = 0;
+
+                }else{
+                    $c->kredit_c = $sisa;
+                    $c->debit_c = 0;
+                }
+                $c->save();
                 return 'success';
             }
         } catch (\Throwable $th) {
@@ -52,6 +66,7 @@ class TransaksiController extends Controller
             $checking->totalharga = $request->harga;
             $checking->hargadiskon = $request->diskon;
             $checking->hargasetelahdiskon = $request->totalharga;
+            $checking->id_user = $request->idpelanggan;
 
             $checking->save();
             if ($checking) {
@@ -90,7 +105,7 @@ class TransaksiController extends Controller
     public function cart($id)
     {
         $sT = Setting::first();
-        $dT = Transaksi::where('id', $id)->first();
+        $dT = Transaksi::with('oCustomer')->where('id', $id)->first();
         $rP = riwayatPembelian::where('id_transak', $id)->get();
         if (request()->ajax()) {
             return Datatables::of(riwayatPembelian::where('id_transak', $id)->get())
@@ -434,6 +449,15 @@ class TransaksiController extends Controller
                     $btn .= '</ul>';
                     return $btn;
                 })
+                ->addColumn('namanya', function ($data) {
+                    if ($data->oCustomer) {
+                        $btn = $data->oCustomer->nama_c;
+                    } else {
+                        $btn = 'Guest';
+                    }
+
+                    return $btn;
+                })
                 ->addColumn('tanggalnya', function ($data) {
                     $btn = $data->tanggalpesan;
                     return $btn;
@@ -465,10 +489,102 @@ class TransaksiController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['aksi', 'harganya', 'tanggalnya', 'usernya', 'statusnya'])
+                ->rawColumns(['aksi', 'namanya','harganya', 'tanggalnya', 'usernya', 'statusnya'])
                 ->make(true);
         }
         $date = Date('d - m - Y');
         return view('admin.transaksi.riwayat', compact('dB', 'date'));
+    }
+    public function riwayat2($id)
+    {
+        $dC = customer::where('id',$id)->first();
+        $dB = Basket::all();
+        if (request()->ajax()) {
+            return Datatables::of(Transaksi::where('id_user',$id)->get())
+                ->addIndexColumn()
+                ->addColumn('namanya', function ($data) {
+                    $btn =
+                        '<div class="media d-flex align-items-center">
+               <img src="' .
+                        url('image/produk') .
+                        '/' .
+                        ($data->gambar ?? 'none.jpg') .
+                        '" width="40%" alt="table-user" class="mr-3 rounded-circle avatar-sm">
+               <div class="">
+                   <h6 class=""><a href="javascript:void(0);" class="text-dark">' .
+                        $data->nama .
+                        '</a></h6>
+               </div>
+           </div>';
+                    return $btn;
+                })
+                ->addColumn('aksi', function ($data) {
+
+                    $btn = "      <ul class='list-inline mb-0'>";
+
+                    $btn .=
+                        "<li class='list-inline-item'>
+                <a href='" .
+                        url('admin/cart/') .
+                        '/' .
+                        $data->id .
+                        "' target='_blank'  class='btn btn-sm btn-primary mb-1'><i class='simple-icon-basket'></i></a>
+                </li><li class='list-inline-item'>
+                <button type='button' onclick='del(" . $data->id . ")' class='btn btn-sm btn-danger mb-1'><i class='simple-icon-trash'></i></button>
+                </li>";
+                    if ($data->status == 1) {
+                        $btn .=
+                            "<li class='list-inline-item'>
+                        <a class='btn btn-sm btn-warning mb-1' href='cetak/nota/" . $data->id . "'><i class='simple-icon-printer' '></i></a>
+                        </li>";
+                    }
+                    $btn .= '</ul>';
+                    return $btn;
+                })
+                ->addColumn('tanggalnya', function ($data) {
+                    $btn = $data->tanggalpesan;
+                    return $btn;
+                })
+                ->addColumn('usernya', function ($data) {
+                    if ($data->id_user) {
+                        $btn = 'Pelanggan';
+                    } else {
+                        $btn = 'Guest';
+                    }
+
+                    return $btn;
+                })
+                ->addColumn('statusnya', function ($data) {
+                    if ($data->status == 2) {
+                        $btn = 'Belum Lunas';
+                    } else {
+                        $btn = 'Lunas';
+                    }
+
+                    return $btn;
+                })
+                ->addColumn('harganya', function ($data) {
+                    if ($data->hargasetelahdiskon) {
+                        $btn = Money::IDR($data->hargasetelahdiskon, true);
+                    } else {
+                        $btn = Money::IDR(0, true);
+                    }
+
+                    return $btn;
+                })
+                ->addColumn('namanya', function ($data) {
+                    if ($data->oCustomer) {
+                        $btn = $data->oCustomer->nama_c;
+                    } else {
+                        $btn = 'Guest';
+                    }
+
+                    return $btn;
+                })
+                ->rawColumns(['aksi', 'harganya', 'tanggalnya', 'usernya', 'statusnya'])
+                ->make(true);
+        }
+        $date = Date('d - m - Y');
+        return view('admin.transaksi.riwayatc', compact('dB', 'date','dC'));
     }
 }

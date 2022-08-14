@@ -9,18 +9,17 @@
 @section('contentpage')
     <div class="row">
         <div class="col-12">
-            <h1>Riwayat Transaksi</h1>
-            <div class="top-right-button-container"><a type="button" href="{{route('admin.transak')}}" class="btn btn-primary btn top-right-button mr-1"
-                    > <i
+            <h1>Riwayat Transaksi -  {{$dC->nama_c}} </h1>
+            <div class="top-right-button-container"><a type="button" class="btn btn-primary btn top-right-button mr-1"
+                    href="{{route('admin.transak')}}"> <i
                         class="simple-icon-magnifier-add"></i> <b> Transaksi Baru</b></a>
             </div>
-         
-        
+      
             <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                 <ol class="breadcrumb pt-0">
                     <li class="breadcrumb-item"><a href="#">Admin</a></li>
                     <li class="breadcrumb-item"><a href="#">Data Master</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Transaksi</li>                
+                    <li class="breadcrumb-item active" aria-current="page">Transaksi</li>
                 </ol>
             </nav>
             <div class="separator mb-5"></div>
@@ -234,7 +233,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.riwayat') }}",
+                url: url + "/admin/riwayat-transaksi/" + "{{ Request::segment(3) }}",
             },
             columns: [{
                     nama: 'DT_RowIndex',

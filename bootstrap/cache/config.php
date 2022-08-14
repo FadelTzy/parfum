@@ -1,7 +1,7 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'Laravel',
+    'name' => 'SIBIMTA',
     'env' => 'local',
     'debug' => true,
     'url' => 'http://localhost',
@@ -10,41 +10,43 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:mHT96CApc7j2ToTEhq8ravAag2SFeXlUZGhi6nTaX5o=',
+    'key' => 'base64:nRzX8QOFSq5EF7IWtpaLzZMoIPH5iA904kpgYXNXGyw=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
-      0 => 'Illuminate\\Auth\\AuthServiceProvider',
-      1 => 'Illuminate\\Broadcasting\\BroadcastServiceProvider',
-      2 => 'Illuminate\\Bus\\BusServiceProvider',
-      3 => 'Illuminate\\Cache\\CacheServiceProvider',
-      4 => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
-      5 => 'Illuminate\\Cookie\\CookieServiceProvider',
-      6 => 'Illuminate\\Database\\DatabaseServiceProvider',
-      7 => 'Illuminate\\Encryption\\EncryptionServiceProvider',
-      8 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
-      9 => 'Illuminate\\Foundation\\Providers\\FoundationServiceProvider',
-      10 => 'Illuminate\\Hashing\\HashServiceProvider',
-      11 => 'Illuminate\\Mail\\MailServiceProvider',
-      12 => 'Illuminate\\Notifications\\NotificationServiceProvider',
-      13 => 'Illuminate\\Pagination\\PaginationServiceProvider',
-      14 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
-      15 => 'Illuminate\\Queue\\QueueServiceProvider',
-      16 => 'Illuminate\\Redis\\RedisServiceProvider',
-      17 => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
-      18 => 'Illuminate\\Session\\SessionServiceProvider',
-      19 => 'Illuminate\\Translation\\TranslationServiceProvider',
-      20 => 'Illuminate\\Validation\\ValidationServiceProvider',
-      21 => 'Illuminate\\View\\ViewServiceProvider',
-      22 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-      23 => 'App\\Providers\\AppServiceProvider',
-      24 => 'App\\Providers\\AuthServiceProvider',
-      25 => 'App\\Providers\\EventServiceProvider',
-      26 => 'App\\Providers\\RouteServiceProvider',
-      27 => 'Barryvdh\\DomPDF\\ServiceProvider',
+      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+      1 => 'Illuminate\\Auth\\AuthServiceProvider',
+      2 => 'Illuminate\\Broadcasting\\BroadcastServiceProvider',
+      3 => 'Illuminate\\Bus\\BusServiceProvider',
+      4 => 'Illuminate\\Cache\\CacheServiceProvider',
+      5 => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+      6 => 'Illuminate\\Cookie\\CookieServiceProvider',
+      7 => 'Illuminate\\Database\\DatabaseServiceProvider',
+      8 => 'Illuminate\\Encryption\\EncryptionServiceProvider',
+      9 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
+      10 => 'Illuminate\\Foundation\\Providers\\FoundationServiceProvider',
+      11 => 'Illuminate\\Hashing\\HashServiceProvider',
+      12 => 'Illuminate\\Mail\\MailServiceProvider',
+      13 => 'Illuminate\\Notifications\\NotificationServiceProvider',
+      14 => 'Illuminate\\Pagination\\PaginationServiceProvider',
+      15 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
+      16 => 'Illuminate\\Queue\\QueueServiceProvider',
+      17 => 'Illuminate\\Redis\\RedisServiceProvider',
+      18 => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
+      19 => 'Illuminate\\Session\\SessionServiceProvider',
+      20 => 'Illuminate\\Translation\\TranslationServiceProvider',
+      21 => 'Illuminate\\Validation\\ValidationServiceProvider',
+      22 => 'Illuminate\\View\\ViewServiceProvider',
+      23 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+      24 => 'App\\Providers\\AppServiceProvider',
+      25 => 'App\\Providers\\AuthServiceProvider',
+      26 => 'App\\Providers\\EventServiceProvider',
+      27 => 'App\\Providers\\RouteServiceProvider',
+      28 => 'Barryvdh\\DomPDF\\ServiceProvider',
     ),
     'aliases' => 
     array (
+      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
       'App' => 'Illuminate\\Support\\Facades\\App',
       'Arr' => 'Illuminate\\Support\\Arr',
       'Artisan' => 'Illuminate\\Support\\Facades\\Artisan',
@@ -186,7 +188,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/framework/cache/data',
+        'path' => 'C:\\xampp\\htdocs\\parfum2\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -230,7 +232,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'laravel_cache',
+    'prefix' => 'sibimta_cache',
   ),
   'cors' => 
   array (
@@ -269,7 +271,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'db_parfum',
+        'database' => 'ulan',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -279,9 +281,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'db_parfum',
+        'database' => 'ulan',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -299,9 +301,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'db_parfum',
+        'database' => 'ulan',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -314,9 +316,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'db_parfum',
+        'database' => 'ulan',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -329,7 +331,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'laravel_database_',
+        'prefix' => 'sibimta_database_',
       ),
       'default' => 
       array (
@@ -349,6 +351,117 @@
       ),
     ),
   ),
+  'excel' => 
+  array (
+    'exports' => 
+    array (
+      'chunk_size' => 1000,
+      'pre_calculate_formulas' => false,
+      'strict_null_comparison' => false,
+      'csv' => 
+      array (
+        'delimiter' => ',',
+        'enclosure' => '"',
+        'line_ending' => '
+',
+        'use_bom' => false,
+        'include_separator_line' => false,
+        'excel_compatibility' => false,
+        'output_encoding' => '',
+      ),
+      'properties' => 
+      array (
+        'creator' => '',
+        'lastModifiedBy' => '',
+        'title' => '',
+        'description' => '',
+        'subject' => '',
+        'keywords' => '',
+        'category' => '',
+        'manager' => '',
+        'company' => '',
+      ),
+    ),
+    'imports' => 
+    array (
+      'read_only' => true,
+      'ignore_empty' => false,
+      'heading_row' => 
+      array (
+        'formatter' => 'slug',
+      ),
+      'csv' => 
+      array (
+        'delimiter' => NULL,
+        'enclosure' => '"',
+        'escape_character' => '\\',
+        'contiguous' => false,
+        'input_encoding' => 'UTF-8',
+      ),
+      'properties' => 
+      array (
+        'creator' => '',
+        'lastModifiedBy' => '',
+        'title' => '',
+        'description' => '',
+        'subject' => '',
+        'keywords' => '',
+        'category' => '',
+        'manager' => '',
+        'company' => '',
+      ),
+    ),
+    'extension_detector' => 
+    array (
+      'xlsx' => 'Xlsx',
+      'xlsm' => 'Xlsx',
+      'xltx' => 'Xlsx',
+      'xltm' => 'Xlsx',
+      'xls' => 'Xls',
+      'xlt' => 'Xls',
+      'ods' => 'Ods',
+      'ots' => 'Ods',
+      'slk' => 'Slk',
+      'xml' => 'Xml',
+      'gnumeric' => 'Gnumeric',
+      'htm' => 'Html',
+      'html' => 'Html',
+      'csv' => 'Csv',
+      'tsv' => 'Csv',
+      'pdf' => 'Dompdf',
+    ),
+    'value_binder' => 
+    array (
+      'default' => 'Maatwebsite\\Excel\\DefaultValueBinder',
+    ),
+    'cache' => 
+    array (
+      'driver' => 'memory',
+      'batch' => 
+      array (
+        'memory_limit' => 60000,
+      ),
+      'illuminate' => 
+      array (
+        'store' => NULL,
+      ),
+    ),
+    'transactions' => 
+    array (
+      'handler' => 'db',
+      'db' => 
+      array (
+        'connection' => NULL,
+      ),
+    ),
+    'temporary_files' => 
+    array (
+      'local_path' => 'C:\\xampp\\htdocs\\parfum2\\storage\\framework/cache/laravel-excel',
+      'remote_disk' => NULL,
+      'remote_prefix' => NULL,
+      'force_resync_remote' => NULL,
+    ),
+  ),
   'filesystems' => 
   array (
     'default' => 'local',
@@ -357,12 +470,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/app',
+        'root' => 'C:\\xampp\\htdocs\\parfum2\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/app/public',
+        'root' => 'C:\\xampp\\htdocs\\parfum2\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -380,7 +493,7 @@
     ),
     'links' => 
     array (
-      '/Users/muhammadirfan/Documents/Laravel/parfum/public/storage' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/app/public',
+      'C:\\xampp\\htdocs\\parfum2\\public\\storage' => 'C:\\xampp\\htdocs\\parfum2\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -415,13 +528,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\parfum2\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\parfum2\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -472,7 +585,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\parfum2\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -531,14 +644,14 @@
     'from' => 
     array (
       'address' => NULL,
-      'name' => 'Laravel',
+      'name' => 'SIBIMTA',
     ),
     'markdown' => 
     array (
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/Users/muhammadirfan/Documents/Laravel/parfum/resources/views/vendor/mail',
+        0 => 'C:\\xampp\\htdocs\\parfum2\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -2450,7 +2563,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/framework/sessions',
+    'files' => 'C:\\xampp\\htdocs\\parfum2\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -2459,7 +2572,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'laravel_session',
+    'cookie' => 'sibimta_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,
@@ -2470,9 +2583,9 @@
   array (
     'paths' => 
     array (
-      0 => '/Users/muhammadirfan/Documents/Laravel/parfum/resources/views',
+      0 => 'C:\\xampp\\htdocs\\parfum2\\resources\\views',
     ),
-    'compiled' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/framework/views',
+    'compiled' => 'C:\\xampp\\htdocs\\parfum2\\storage\\framework\\views',
   ),
   'dompdf' => 
   array (
@@ -2481,10 +2594,10 @@
     'convert_entities' => true,
     'options' => 
     array (
-      'font_dir' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/fonts',
-      'font_cache' => '/Users/muhammadirfan/Documents/Laravel/parfum/storage/fonts',
-      'temp_dir' => '/var/folders/s_/z3g_zvv54xd5shgdrtpmnh5h0000gn/T',
-      'chroot' => '/Users/muhammadirfan/Documents/Laravel/parfum',
+      'font_dir' => 'C:\\xampp\\htdocs\\parfum2\\storage\\fonts',
+      'font_cache' => 'C:\\xampp\\htdocs\\parfum2\\storage\\fonts',
+      'temp_dir' => 'C:\\Users\\Fadel\\AppData\\Local\\Temp',
+      'chroot' => 'C:\\xampp\\htdocs\\parfum2',
       'allowed_protocols' => 
       array (
         'file://' => 
@@ -2564,7 +2677,7 @@
   'livewire' => 
   array (
     'class_namespace' => 'App\\Http\\Livewire',
-    'view_path' => '/Users/muhammadirfan/Documents/Laravel/parfum/resources/views/livewire',
+    'view_path' => 'C:\\xampp\\htdocs\\parfum2\\resources\\views/livewire',
     'layout' => 'layouts.app',
     'asset_url' => NULL,
     'app_url' => NULL,

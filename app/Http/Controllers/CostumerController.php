@@ -8,6 +8,7 @@ use App\Models\Barang;
 use App\Models\Costumer;
 use App\Models\customer;
 use App\Models\User;
+use Akaunting\Money\Money;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,8 +50,24 @@ class CostumerController extends Controller
                         $data->id .
                         ")' class='btn btn-danger btn-xs mb-1'><i class='simple-icon-trash'></i></button>
                 </li>
+                <li class='list-inline-item'>
+                <button type='button' onclick='del(" .
+                        $data->id .
+                        ")' class='btn btn-warning btn-xs mb-1'><i class='simple-icon-basket'></i></button>
+                </li>
 
             </ul>";
+                    return $btn;
+                })->addColumn('kreditnya', function ($data) {
+                    $btn =  Money::IDR($data->kredit_c, true);
+                    return $btn;
+                })
+                // ->addColumn('kuantitasnya', function ($data) {
+                //     $btn = $data->jumlah . ' ' . $data->satuan;
+                //     return $btn;
+                // })
+                ->addColumn('debitnya', function ($data) {
+                    $btn =  Money::IDR($data->debit_c, true);
                     return $btn;
                 })
                 // ->addColumn('kuantitasnya', function ($data) {
@@ -120,8 +137,21 @@ class CostumerController extends Controller
         $data = customer::where('id', $request->id)->first();
         // dd($request->id);
 
+        if ($request->bayar_debit) {
+            $sisa =  $data->debit_c - ($request->kredit_c + $data->kredit_c);
+            if ($sisa < 0) {
+                $data->kredit_c = abs($sisa);
+                $data->debit_c = 0;
+            }else{
 
-        $data->kredit_c = $request->kredit_c;
+                $data->debit_c = $sisa;
+                $data->kredit_c = 0;
+            }
+        }else{
+            $data->kredit_c = $request->kredit_c;
+
+        }
+
         $data->save();
 
         if ($data) {

@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
         //Transaksi
         Route::get('/transaksi', [TransaksiController::class, 'index'])->name('admin.transak');
         Route::get('/riwayat-transaksi', [TransaksiController::class, 'riwayat'])->name('admin.riwayat');
+        Route::get('/riwayat-transaksi/{id}', [TransaksiController::class, 'riwayat2'])->name('admin.riwayat2');
+
         Route::post('/transaksi/simpan', [TransaksiController::class, 'simpan'])->name('admin.simpan');
         Route::post('/transaksi/bayar', [TransaksiController::class, 'bayar'])->name('admin.bayar');
         Route::delete('/transaksi/{id}', [TransaksiController::class, 'delete']);
@@ -55,6 +57,9 @@ Route::group(['middleware' => ['auth']], function () {
         //produk
         Route::get('/data-barang', [BarangController::class, 'barang'])->name('barang.index');
         Route::post('/data-barang', [BarangController::class, 'store'])->name('barang.store');
+        Route::post('/data-barang/import', [BarangController::class, 'import'])->name('barang.import');
+        Route::get('/data-barang/export', [BarangController::class, 'export'])->name('barang.export');
+
         Route::post('/data-barang/edit', [BarangController::class, 'update'])->name('barang.update');
         Route::delete('/data-barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
@@ -92,6 +97,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/data-admin', [user::class, 'adminedit'])->name('data.adminedit');
         Route::delete('/data-admin/{a}', [user::class, 'adminhapus'])->name('data.adminhapus');
         Route::get('/data-admin', [user::class, 'admin'])->name('data.admin');
+        //pelanggan
+        Route::get('/daftar-pelanggan', [user::class, 'pelanggan'])->name('data.pelanggan');
+
     });
 });
 
