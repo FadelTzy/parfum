@@ -22,6 +22,8 @@ class CreateSettingsTable extends Migration
             $table->string('kecamatan')->nullalbe();
             $table->string('atm')->nullalbe();
             $table->string('logo')->nullalbe();
+            $table->string('exportfile')->nullalbe();
+
 
             $table->timestamps();
         });

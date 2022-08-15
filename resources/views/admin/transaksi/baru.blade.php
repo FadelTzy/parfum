@@ -447,7 +447,9 @@
                         $('#suksesnotif').html(
                             '<div class="alert alert-success alert-dismissible rounded " role="alert">    <strong>Berhasil Menambah Data</strong>    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
                         );
-                        window.open(url + '/admin/cart/' + id);
+                        // window.open(url + '/admin/cart/' + id);
+                        // console.log(id)
+                        window.location.replace(url + '/admin/cart/' + id);
 
                         $("#notif").addClass('d-none');
                         $("#listnotif").html('');

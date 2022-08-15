@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Barang;
 use Yajra\DataTables\DataTables;
 use App\Imports\barangImport;
-
+use App\Models\Setting;
 use Maatwebsite\Excel\Facades\Excel;
 class BarangController extends Controller
 {
@@ -45,6 +45,7 @@ class BarangController extends Controller
     }
     public function barang()
     {
+        $set = Setting::first();
         if (request()->ajax()) {
             return Datatables::of(Barang::get())
                 ->addIndexColumn()
@@ -88,14 +89,20 @@ class BarangController extends Controller
                     return $btn;
                 })
                 ->addColumn('harganya', function ($data) {
-                    $btn =  Money::IDR($data->harga, true);
+                    
+                    if ($data->jenis == 'parfum') {
+                        $btn =  Money::USD($data->harga, true);
+                    }else{
+
+                        $btn =  Money::IDR($data->harga, true);
+                    }
 
                     return $btn;
                 })
                 ->rawColumns(['aksi', 'kuantitasnya', 'namanya'])
                 ->make(true);
         }
-        return view('admin.data.barang');
+        return view('admin.data.barang',compact('set'));
     }
     public function store(Request $request)
     {

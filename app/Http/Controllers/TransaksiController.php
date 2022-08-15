@@ -366,7 +366,7 @@ class TransaksiController extends Controller
                <img src="' .
                         url('image/produk') .
                         '/' .
-                        ($data->gambar ?? 'none.jpg') .
+                        ($data->gambar == null ? 'none.png' : $data->gambar) .
                         '" width="40%" alt="table-user" class="mr-3 rounded-circle avatar-sm">
                <div class="">
                    <h6 class=""><a href="javascript:void(0);" class="text-dark">' .
@@ -396,7 +396,12 @@ class TransaksiController extends Controller
                     return $btn;
                 })
                 ->addColumn('harganya', function ($data) {
-                    $btn = Money::IDR($data->harga, true) . ' / ' . $data->satuan;
+                    if ($data->jenis == 'parfum') {
+                        $btn = Money::USD($data->harga, true) . ' / ' . $data->satuan;
+                    }else{
+
+                        $btn = Money::IDR($data->harga, true) . ' / ' . $data->satuan;
+                    }
                     return $btn;
                 })
                 ->rawColumns(['aksi', 'harganya', 'kuantitasnya', 'namanya'])

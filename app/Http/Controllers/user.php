@@ -153,15 +153,13 @@ class user extends Controller
             $data = ['status' => 'error', 'data' => $validator->errors()];
             return $data;
         }
-
         $user = Modaluser::updateOrCreate(['id' => $request->id], [
             'name' => $request->nama,
             'email' => $request->email,
             'no_hp' => $request->no,
             'username' => $request->username,
             'status' => $request->status == 'on' ? 1 : 0,
-            'role' => 0,
-            'foto' => null,
+          
         ]);
         if ($request->pass == 'on') {
             $user = Modaluser::updateOrCreate(['id' => $request->id], [
@@ -207,9 +205,9 @@ class user extends Controller
     public function admin()
     {
         if (request()->ajax()) {
-            return Datatables::of(Modaluser::get())->addIndexColumn()->addColumn('nama', function ($data) {
+            return Datatables::of(Modaluser::where('role',1)->orWhere('role',2)->get())->addIndexColumn()->addColumn('nama', function ($data) {
                 $btn =  ' <div class="media d-flex align-items-center">
-               <img src="' . asset('image/fotoadmin') . '/' . ($data->foto ?? 'none.jpg') . '" width="20%" alt="table-user" class="mr-3 rounded-circle avatar-sm">
+               <img src="' . asset('image/fotomhs') . '/' . ($data->foto ?? 'none.jpg') . '" width="20%" alt="table-user" class="mr-3 rounded-circle avatar-sm">
                <div class="">
                    <h6 class=""><a href="javascript:void(0);" class="text-dark">' . $data->name . '</a></h6>
                </div>
@@ -239,7 +237,8 @@ class user extends Controller
             })->addColumn('role', function ($data) {
                 if ($data->role == 1) {
                     return '<span class="badge badge-info">Super Admin</span>';
-                } else {
+                } 
+                if($data->role == 2) {
                     return '<span class="badge badge-warning">Operator</span>';
                 }
             })->rawColumns(['aksi', 'status', 'nama', 'tanggal', 'role'])->make(true);

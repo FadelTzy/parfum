@@ -6,23 +6,19 @@
                             class="simple-icon-screen-desktop"></i> <span>Dashboard</span></a></li>
                 <li class="{{ Request::segment(2) == 'data-customer' ? 'active' : '' }}"><a href="{{ route('customer.index') }}"><i class="simple-icon-people"></i> Costumer</a>
                 </li>
-                <li><a href="#layouts"><i class="simple-icon-menu"></i> Data Master</a></li>
+                <li><a href="#layouts"><i class="simple-icon-settings"></i> Data Master</a></li>
                 <li class="{{ Request::segment(2) == 'transaksi' ? 'active' : '' }}"><a
                         href="{{ route('admin.transak') }}"><i class="simple-icon-basket"></i> Transaksi</a>
                 </li>
                 <li class="{{ Request::segment(2) == 'riwayat-transaksi' ? 'active' : '' }}"><a
-                        href="{{ route('admin.riwayat') }}"><i class="simple-icon-basket"></i> Riwayat Transaksi</a>
+                        href="{{ route('admin.riwayat') }}"><i class="simple-icon-list"></i> Riwayat Transaksi</a>
                 </li>
                 <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-user"></i> Profile</a>
                 </li>
-                <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-settings"></i>
-                        Pengaturan</a>
-                </li>
+         
 
 
-                <li><a href="#layouts"><i class="simple-icon-people"></i> Data Master</a></li>
-                <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-user"></i> Profile</a>
-                </li>
+            
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -45,9 +41,9 @@
             <ul class="list-unstyled" data-link="layouts" id="layouts">
                 <li><a href="{{ route('data.admin') }}"><i class="simple-icon-user"></i> <span
                             class="d-inline-block">Data Admin</span></a></li>
-                <li><a href="{{ route('barang.index') }}"><i class="simple-icon-user"></i> <span
+                <li><a href="{{ route('barang.index') }}"><i class="simple-icon-handbag"></i> <span
                             class="d-inline-block">Data Produk</span></a></li>
-                <li><a href="{{ route('setting.index') }}"><i class="simple-icon-user"></i> <span
+                <li><a href="{{ route('setting.index') }}"><i class="simple-icon-notebook"></i> <span
                             class="d-inline-block">konfigurasi Nota</span></a></li>
             </ul>
 

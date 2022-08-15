@@ -10,7 +10,7 @@
         @endif
         <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton"><i class="simple-icon-size-fullscreen"></i> <i class="simple-icon-size-actual"></i></button>
     </div>
-    <div class="user d-inline-block"><button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="name">{{Auth::user()->name}}</span> <span><img alt="Profile Picture" src="{{asset('image/fotomhs/')}}/{{Auth::user()->foto ?? 'dosen.png'}}"></span></button>
+    <div class="user d-inline-block"><button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="name">{{Auth::user()->name}}</span> <span><img alt="Profile Picture" src="{{asset('image/fotomhs/')}}/{{Auth::user()->foto ?? 'none.jpg'}}"></span></button>
         <div class="dropdown-menu dropdown-menu-right mt-3">
             @if(Auth::user()->role == 3)
             <a class="dropdown-item" href="{{url('mahasiswa/profile')}}">Profle</a>

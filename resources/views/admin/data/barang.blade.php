@@ -11,9 +11,13 @@
         <div class="col-12">
             <h1>Tabel Data Produk</h1>
             <div class="top-right-button-container">
-                <button type="button" class="btn btn-primary btn top-right-button mr-1" data-toggle="modal"
+                <div class="btn-group btn-group-sm mr-2 mb-1" role="group">
+                    <button type="button" class="btn btn-primary btn top-right-button " data-toggle="modal"
                     data-target="#exportModal"> <i class="simple-icon-magnifier-add"></i> <b> Import</b></button>
+                    <a href="{{asset('file') . '/' . $set->exportfile}}" type="button" class="btn btn-primary"><i class="simple-icon-cloud-download"></i></a>
                     <a type="button" target="_blank" class="btn btn-primary btn top-right-button mr-1" href="{{route('barang.export')}}"> <i class="simple-icon-magnifier-add"></i> <b> Export</b></a>
+                    </div>
+          
                 <button type="button" class="btn btn-primary btn top-right-button mr-1" data-toggle="modal"
                     data-target="#exampleModalRight"> <i class="simple-icon-magnifier-add"></i> <b> Tambah
                         Produk</b></button>

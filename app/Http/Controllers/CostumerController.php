@@ -51,9 +51,7 @@ class CostumerController extends Controller
                         ")' class='btn btn-danger btn-xs mb-1'><i class='simple-icon-trash'></i></button>
                 </li>
                 <li class='list-inline-item'>
-                <button type='button' onclick='del(" .
-                        $data->id .
-                        ")' class='btn btn-warning btn-xs mb-1'><i class='simple-icon-basket'></i></button>
+                <a type='button' href='" . url('admin/riwayat-transaksi/') .'/' . $data->id . "' class='btn btn-warning btn-xs mb-1'><i class='simple-icon-basket'></i></a>
                 </li>
 
             </ul>";
@@ -148,7 +146,7 @@ class CostumerController extends Controller
                 $data->kredit_c = 0;
             }
         }else{
-            $data->kredit_c = $request->kredit_c;
+            $data->kredit_c = $request->kredit_c + $data->kredit_c;
 
         }
 

@@ -65,13 +65,13 @@
                                 @csrf
                                 <input type="hidden" id="idu" name="id">
                                 <div class="form-group">
-                                    <label>Kredit</label>
+                                    <label>Debit</label>
                                     <input type="text" class="form-control" id="kredit_c" name="kredit_c">
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" value="1" name="bayar_debit" id="customCheck1">
-                                         <label class="custom-control-label" for="customCheck1">Bayar Debit</label>
+                                         <label class="custom-control-label" for="customCheck1">Bayar Kredit</label>
                                     </div>
                                 </div>
                             </form>
@@ -114,8 +114,8 @@
                                 <th>Nama</th>
                                 <th>Nomor Telepon</th>
                                 <th>Alamat Tinggal</th>
-                                <th>Kredit</th>
                                 <th>Debit</th>
+                                <th>Kredit</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

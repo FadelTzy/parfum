@@ -15,6 +15,8 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
+        $nama_file = null;
+        $excel = null;
         if (request()->file('logo')) {
             $gmbr = request()->file('logo');
 
@@ -22,18 +24,23 @@ class SettingController extends Controller
             $tujuan_upload = 'image/logoapp/';
             $gmbr->move($tujuan_upload, $nama_file);
         }
-        $save =  Setting::where('id', 1)
-            ->update(
-                [
-                    'nama_app' =>  $request->nama_app,
-                    'alamat' =>  $request->alamat,
-                    'notelp' =>  $request->notelp,
-                    'kurs' =>  $request->kurs,
-                    'kecamatan' =>  $request->kecamatan,
-                    'atm' =>  $request->atm,
-                    'logo' => $nama_file  ?? null,
-                ]
-            );
+        if (request()->file('excel')) {
+            $gmbr = request()->file('excel');
+
+            $excel = str_replace(' ', '_', time() . '_' . $gmbr->getClientOriginalName());
+            $tujuan_upload = 'file/';
+            $gmbr->move($tujuan_upload, $excel);
+        }
+        $save =  Setting::where('id', 1)->first();
+      $save->nama_app=  $request->nama_app;
+      $save->alamat=  $request->alamat;
+      $save->notelp=  $request->notelp;
+      $save->kurs=  $request->kurs;
+      $save->kecamatan=  $request->kecamatan;
+      $save->atm=  $request->atm;
+      $save->logo= $nama_file ?? $save->logo;
+      $save->exportfile= $excel ?? $save->exportfile;
+      $save->save();
         if ($save) {
             return 'success';
         }

@@ -11,7 +11,7 @@
         <div class="col-12">
             <h1>Data Nota</h1>
             <div class="top-right-button-container"><button type="button" class="btn btn-primary btn top-right-button mr-1"
-                    data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight"> <i
+                    data-toggle="modal"  data-target="#exampleModalRight"> <i
                         class="simple-icon-magnifier-add"></i> <b> Edit Konfigurasi</b></button>
             </div>
             <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
@@ -57,6 +57,8 @@
 
                                 <div class="form-group"><label for="logo">Logo</label> <input type="file"
                                         class="form-control" id="logo" name="logo"> </div>
+                                <div class="form-group"><label for="logo">Excel File</label> <input type="file"
+                                        class="form-control" id="excel" name="excel"> </div>
                             </form>
                         </div>
                         <div class="modal-footer"><button type="button" class="btn btn-outline-primary"
@@ -116,20 +118,34 @@
                         class="form-control" id="atm" name="atm" readonly value="{{ $setting->atm ?? '' }}">
                 </div>
 
-
-                <div class="form-group"><label for="atm">Logo</label>
-                    <br>
-                    @php
-                        $logo = $setting->logo ?? '';
-                    @endphp
-                    @if ($logo == '')
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
-                            height="200" alt="">
-                    @else
-                        <img src="{{ url('image/logoapp/' . $setting->logo) }}" alt="" height="200">
-                    @endif
+                <div class="d-flex justify-content-start">
+                    <div class="form-group mr-2"><label for="atm">Logo</label>
+                        <br>
+                        @php
+                            $logo = $setting->logo ?? '';
+                        @endphp
+                        @if ($logo == '')
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+                                height="200" alt="">
+                        @else
+                            <img src="{{ url('image/logoapp/' . $setting->logo) }}" alt="" height="200">
+                        @endif
+                    </div>
+                    <div class="form-group"><label for="atm">File Export</label>
+                        <br>
+                        @php
+                            $logos = $setting->exportfile ?? '';
+                        @endphp
+                        @if ($logos == '')
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+                                height="200" alt="">
+                        @else
+                            <a type="button" class="btn btn-sm btn-success" href="{{ asset('file/' . $setting->exportfile) }}" target="_blank" download="">Download File </a>
+                        @endif
+                    </div>
                 </div>
-
+           
+          
             </form>
         </div>
     </div>

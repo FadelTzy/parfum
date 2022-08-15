@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4">
-                            <img src="{{asset('image/fotomhs/')}}/{{Auth::user()->foto ?? 'dosen.png'}}" alt="Detail Picture" class="mx-auto w-50">
+                            <img src="{{asset('image/fotomhs/')}}/{{Auth::user()->foto ?? 'none.jpg'}}" alt="Detail Picture" class="mx-auto w-50">
                             <div class="card-body">
 
 

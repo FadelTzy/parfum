@@ -281,7 +281,7 @@
                         <li class=""><a type="button" onclick="daftar()" href="#"> Pelanggan
                                 <span id="namapelanggan" class="float-right">{{ $dT->oCustomer->nama_c ?? 'Guest' }}</span>
                             </a></li>
-                            <input type="hidden" name="idpelanggan" value="{{ $dT->oCustomer->id}} ??" id="idpelangganv">
+                            <input type="hidden" name="idpelanggan" value="{{ $dT->oCustomer->id ?? null}} " id="idpelangganv">
 
                     </ul>
                     <p class="text-muted text-small">Harga</p>
@@ -309,6 +309,8 @@
                         <p class="d-sm-inline-block mb-1">
                             <button type="button" id="simpancart"
                                 class="btn btn-sm btn-outline-primary mb-1">Simpan</button>
+                                <button type="button" onclick="del({{$dT->id}})" id="hapusTransak"
+                                class="btn btn-sm btn-outline-danger mb-1">Hapus</button>
                             @if ($dT->status == 1)
                                 <button type="button" class="btn btn-sm btn-outline-warning mb-1">Cetak</button>
                             @endif
@@ -876,7 +878,7 @@
                 $.LoadingOverlay("show");
 
                 $.ajax({
-                    url: url + '/admin/data-barang/' + id,
+                    url: url + '/admin/transaksi/' + id,
                     type: "delete",
                     success: function(e) {
                         $.LoadingOverlay("hide");
@@ -885,7 +887,11 @@
                             $('#suksesnotifd').html(
                                 '<div class="alert alert-success alert-dismissible rounded " role="alert">    <strong>Berhasil Menghapus Data</strong>    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
                             );
+                            
                         }
+                        // window.open(url + '/admin/transaksi');
+                        window.location.replace(url + '/admin/transaksi');
+
                     }
                 })
 
