@@ -38,6 +38,8 @@ class TransaksiController extends Controller
             $checking->status = 1;
             $checking->jenistransfer = $request->metode;
             $checking->tanggalbayar = date('d - m - Y');
+            $checking->updated_at = date('Y-m-d G:i:s');
+
             $checking->save();
             if ($checking) {
                 $c = customer::where('id',$checking->id_user)->first();
@@ -66,7 +68,7 @@ class TransaksiController extends Controller
             $checking->totalharga = $request->harga;
             $checking->hargadiskon = $request->diskon;
             $checking->hargasetelahdiskon = $request->totalharga;
-            $checking->id_user = $request->idpelanggan;
+            $checking->id_user = $request->idpelanggan ?? null;
 
             $checking->save();
             if ($checking) {
@@ -192,7 +194,7 @@ class TransaksiController extends Controller
                 ->addColumn('dt', function ($data) {
                     if ($data->tipe == 'parfum') {
                         # code...
-                        $btn = Money::USD($data->harga * $data->jumlah, true);
+                        $btn = Money::USD((int)$data->harga * (int)$data->jumlah, true);
                     } else {
                         $btn = '';
                     }
@@ -202,7 +204,8 @@ class TransaksiController extends Controller
                     $dataj = json_encode($data);
                     if ($data->tipe == 'parfum') {
                         # code...
-                        $btn = Money::IDR($data->harga * $sT->kurs, true);
+                        
+                        $btn = Money::IDR((int)$data->harga * (int)$sT->kurs, true);
                     } else {
                         $btn = "<a href='#' onclick='changeD(" . $dataj . ")'>" . Money::IDR($data->harga, true) . '</a>';
                     }
@@ -211,20 +214,20 @@ class TransaksiController extends Controller
                 ->addColumn('rt', function ($data) use ($sT) {
                     if ($data->tipe == 'parfum') {
                         # code...
-                        $har = $data->harga * $data->jumlah * $sT->kurs;
-                        $btn = Money::IDR($data->harga * $sT->kurs * $data->jumlah, true);
+                        $har = (int)$data->harga * (int)$data->jumlah * (int)$sT->kurs;
+                        $btn = Money::IDR((int)$data->harga * (int)$sT->kurs * (int)$data->jumlah, true);
                     } else {
-                        $har = $data->harga * $data->jumlah;
-                        $btn = Money::IDR($data->harga * $data->jumlah, true);
+                        $har = (int)$data->harga * (int)$data->jumlah;
+                        $btn = Money::IDR((int)$data->harga * (int)$data->jumlah, true);
                     }
                     return $btn . "<input name='totha[]' class='cicas' type='hidden' value='" . $har . "'/>";
                 })
                 ->addColumn('totals', function ($data) use ($sT) {
                     if ($data->tipe == 'parfum') {
                         # code...
-                        $har = $data->harga * $data->jumlah * $sT->kurs;
+                        $har = (int)$data->harga * (int)$data->jumlah * (int)$sT->kurs;
                     } else {
-                        $har = $data->harga * $data->jumlah;
+                        $har = (int)$data->harga * (int)$data->jumlah;
                     }
                     return $har;
                 })
@@ -233,9 +236,9 @@ class TransaksiController extends Controller
                         # code...
                         if ($data->tipe == 'parfum') {
                             # code...
-                            $har = $data->harga * $data->jumlah * $sT->kurs * ($data->diskon * 0.01);
+                            $har = (int)$data->harga * (int)$data->jumlah * (int)$sT->kurs * ((int)$data->diskon * 0.01);
                         } else {
-                            $har = $data->harga * $data->jumlah * ($data->diskon * 0.01);
+                            $har = (int)$data->harga * (int)$data->jumlah * ((int)$data->diskon * 0.01);
                         }
                     } else {
                         $har = 0;

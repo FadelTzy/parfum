@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use App\Models\Barang;
-use App\Models\Costumer;
+
 use App\Models\customer;
 use App\Models\User;
 use Akaunting\Money\Money;

@@ -73,6 +73,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/profile', [Controller::class, 'profil'])->name('admin.profil');
 
+        //getduit
+        Route::post('/getduit', [Controller::class, 'getduit'])->name('admin.getduit');
 
         //cetak
         Route::get('/cetak/nota/{id}', [CetakController::class, 'nota'])->name('admin.cetaknota');

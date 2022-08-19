@@ -13,6 +13,9 @@
                 <li class="{{ Request::segment(2) == 'riwayat-transaksi' ? 'active' : '' }}"><a
                         href="{{ route('admin.riwayat') }}"><i class="simple-icon-list"></i> Riwayat Transaksi</a>
                 </li>
+                <li class="{{ Request::segment(2) == 'riwayat-transaksi' ? 'active' : '' }}"><a
+                    href="{{ route('admin.riwayat') }}"><i class="simple-icon-notebook"></i> Laporan</a>
+            </li>
                 <li class=""><a href="{{ route('admin.profil') }}"><i class="simple-icon-user"></i> Profile</a>
                 </li>
          
