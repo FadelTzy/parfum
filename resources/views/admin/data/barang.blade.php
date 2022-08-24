@@ -13,17 +13,19 @@
             <div class="top-right-button-container">
                 <div class="btn-group btn-group-sm mr-2 mb-1" role="group">
                     <button type="button" class="btn btn-primary btn top-right-button " data-toggle="modal"
-                    data-target="#exportModal"> <i class="simple-icon-magnifier-add"></i> <b> Import</b></button>
-                    <a href="{{asset('file') . '/' . $set->exportfile}}" type="button" class="btn btn-primary"><i class="simple-icon-cloud-download"></i></a>
-                    <a type="button" target="_blank" class="btn btn-primary btn top-right-button mr-1" href="{{route('barang.export')}}"> <i class="simple-icon-magnifier-add"></i> <b> Export</b></a>
-                    </div>
-          
+                        data-target="#exportModal"> <i class="simple-icon-magnifier-add"></i> <b> Import</b></button>
+                    <a href="{{ asset('file') . '/' . $set->exportfile }}" type="button" class="btn btn-primary"><i
+                            class="simple-icon-cloud-download"></i></a>
+                    <a type="button" target="_blank" class="btn btn-primary btn top-right-button mr-1"
+                        href="{{ route('barang.export') }}"> <i class="simple-icon-magnifier-add"></i> <b> Export</b></a>
+                </div>
+
                 <button type="button" class="btn btn-primary btn top-right-button mr-1" data-toggle="modal"
                     data-target="#exampleModalRight"> <i class="simple-icon-magnifier-add"></i> <b> Tambah
                         Produk</b></button>
             </div>
-            <div class="modal fade modal-right" id="exportModal" tabindex="-1" role="dialog"
-                aria-labelledby="exportModal" aria-hidden="true">
+            <div class="modal fade modal-right" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModal"
+                aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -33,7 +35,7 @@
                         <div class="modal-body">
                             <form id="formimport">
                                 @csrf
-                              
+
                                 <div class="form-group"><label>File</label> <input type="file" class="form-control"
                                         placeholder="input Harga" name="excel"></div>
                             </form>
@@ -68,8 +70,8 @@
                                         placeholder="input Satuan" name="satuan"></div>
                                 <div class="form-group">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenisproduk" id="inlineRadio1"
-                                            value="parfum">
+                                        <input class="form-check-input" type="radio" name="jenisproduk"
+                                            id="inlineRadio1" value="parfum">
                                         <label class="form-check-label" for="inlineRadio1">Parfum</label>
                                     </div>
                                     <div class="form-check form-check-inline">
@@ -190,6 +192,7 @@
                                 <th>Kode Produk</th>
                                 <th>Merek</th>
                                 <th>Jumlah</th>
+                                <th>Satuan</th>
                                 <th>Harga</th>
                                 <th>Aksi</th>
                             </tr>
@@ -204,7 +207,7 @@
 @push('pagejs')
     <script src="{{ asset('asset/js/vendor/datatables.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js
-                                                        "></script>
+                                                                    "></script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -445,6 +448,10 @@
                 {
                     name: 'kuantitasnya',
                     data: 'kuantitasnya'
+                },
+                {
+                    name: 'satuannya',
+                    data: 'satuannya'
                 },
                 {
                     name: 'harganya',

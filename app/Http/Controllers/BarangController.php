@@ -11,11 +11,12 @@ use Yajra\DataTables\DataTables;
 use App\Imports\barangImport;
 use App\Models\Setting;
 use Maatwebsite\Excel\Facades\Excel;
+
 class BarangController extends Controller
 {
     public function import(Request $request)
     {
-       
+
         $validator = Validator::make($request->all(), [
             'excel' => 'required|mimes:csv,xls,xlsx'
         ]);
@@ -27,13 +28,12 @@ class BarangController extends Controller
     }
     public function export(Request $request)
     {
-       
-        return Excel::download(new barangExport(), 'daftarbarang.xlsx');
 
+        return Excel::download(new barangExport(), 'daftarbarang.xlsx');
     }
     public function destroy($id)
     {
-        $data = Barang::where('id',$id)->first();
+        $data = Barang::where('id', $id)->first();
         if ($data->gambar) {
             $path = '/image/produk/' . $data->gambar;
             if (file_exists(public_path() . $path)) {
@@ -55,7 +55,7 @@ class BarangController extends Controller
                <img src="' .
                         url('image/produk') .
                         '/' .
-                        ($data->gambar != null ? $data->gambar:'none.png') .
+                        ($data->gambar != null ? $data->gambar : 'none.png') .
                         '" width="40%" alt="table-user" class="mr-3 rounded-circle avatar-sm">
                <div class="">
                    <h6 class=""><a href="javascript:void(0);" class="text-dark">' .
@@ -80,29 +80,33 @@ class BarangController extends Controller
                         $data->id .
                         ")' class='btn btn-danger btn-xs mb-1'><i class='simple-icon-trash'></i></button>
                 </li>
-           
+
             </ul>";
                     return $btn;
                 })
                 ->addColumn('kuantitasnya', function ($data) {
-                    $btn = $data->jumlah . ' ' . $data->satuan;
+                    $btn = $data->jumlah;
+                    return $btn;
+                })
+                ->addColumn('satuannya', function ($data) {
+                    $btn = $data->satuan;
                     return $btn;
                 })
                 ->addColumn('harganya', function ($data) {
-                    
+
                     if ($data->jenis == 'parfum') {
                         $btn =  Money::USD($data->harga, true);
-                    }else{
+                    } else {
 
                         $btn =  Money::IDR($data->harga, true);
                     }
 
                     return $btn;
                 })
-                ->rawColumns(['aksi', 'kuantitasnya', 'namanya'])
+                ->rawColumns(['aksi', 'kuantitasnya', 'namanya', 'satuannya'])
                 ->make(true);
         }
-        return view('admin.data.barang',compact('set'));
+        return view('admin.data.barang', compact('set'));
     }
     public function store(Request $request)
     {
